@@ -3,14 +3,16 @@ import bodyParser from 'body-parser';
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import Userroute from './routers/user.js'
 import signup from './routers/signup.js'
-import register from './routers/register.js'
+import mongoconfig from './configs/MongodbConfig.js'
 //---------------------------> Express <-----------------------//
 const app = express();
 
 app.use(bodyParser.json({limit: "30mb"}));
 app.use(bodyParser.urlencoded({extended : true, limit: "30mb"}));
 app.use('/', cors());
+app.use(Userroute)
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -20,15 +22,14 @@ app.use((req, res, next) => {
 })
 
 //-----------------------------> Mongoose <--------------------------//
-mongoose.connect("mongodb+srv://leductin:tin123@cluster0.vyulz25.mongodb.net/UserDB", {useNewUrlParser: true});
+mongoose.connect(mongoconfig.mongodb.THAI_uri);
 
 //------------------------------> Post <-----------------------------//
 app.use(signup);
-app.use(register);
 //---------------------------> Set up PORT <-------------------------//
 let port = process.env.PORT;
 if(port == null || port == ""){
-  port = 3001;
+    port = 3001;
 }
 
 //---------------------------> ListenPort <--------------------------//

@@ -1,12 +1,43 @@
 import mongoose from "mongoose";
 
 const UserDBSchema = new mongoose.Schema({
-    fname: String,
-    lname: String,
-    birthday: Date,
-    email: String,
-    password: String
-})
+    UserName: {
+        type: String,
+        minlength: 1,
+        maxlength: 64
+    },
+    LoginName: {
+        type: String,
+        minlength: 1,
+        maxlength: 64
+    },
+    Password: {
+        type: String
+    },
+    UserRight: {
+        type: String // It is temporary String, will be modified later
+    },
+    Email: {
+        type: String,
+        required: true,
+    },
+    RegisterDate: {
+        type: Date
+    },
+    CreateBy: {
+        type: String
+    },
+    UpdatedBy: {
+        type: String
+    },
+    UpdatedDate: {
+        type: Date
+    }
+},
+    {
+        collection: 'Users', // Define collection for User entity
+        versionKey: false
+    })
 
 const users = mongoose.model('users', UserDBSchema);
 
