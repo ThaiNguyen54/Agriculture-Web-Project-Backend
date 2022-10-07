@@ -1,5 +1,6 @@
 import users from "../models/user.js"
 import bcrypt from 'bcrypt';
+import transporter from "./sendingemail.js";
 
 const AddUserAccount = async(req, res) =>{
 
@@ -22,7 +23,18 @@ const AddUserAccount = async(req, res) =>{
             if(!UserInsertData){
                 throw new Error("Can not upload");
             }else{
-                res.send(UserInsertData);
+                transporter.send({
+                    to: req.body.email,
+                    from: 'leductin.9e@gmail.com',
+                    subject: 'Signup succeeded',
+                    html: '<h1>You successfully signed up</h1>'
+                }).then(() => {
+                    res.send(UserInsertData);
+                    console.log("Email send");
+                })
+                .catch((err) => {
+                    console.error(err);
+                })
             }
         }
     }catch(err){

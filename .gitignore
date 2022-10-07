@@ -10,7 +10,7 @@
 
 # production
 /build
-
+/Agriculture-Web-Project-Backend
 # misc
 .DS_Store
 .env.local
