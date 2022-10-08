@@ -1,5 +1,9 @@
 import users from "../models/user.js"
 import bcrypt from 'bcryptjs';
+import * as UserManagement from '../Management/UserManagement.js';
+import JsonWebToken from 'jsonwebtoken';
+import * as Rest from '../utils/Rest.js';
+import MongoConfig from '../configs/MongodbConfig.js'
 
 export const AddUserAccount = async(req, res) =>{
 
@@ -66,3 +70,24 @@ export function GetUserById(req, res){
             });
         });
 }
+
+export function Login (req, res) {
+    let LoginName = req.body.LoginName || '';
+    let Password = req.body.Password || '';
+    UserManagement.Authenticate(LoginName, Password, function (ErrorCode, ErrorMess, httpCode, ErrorDescript, user) {
+        if (ErrorCode) {
+            return Rest.SendError(res, ErrorCode, ErrorMess, httpCode, ErrorDescript);
+        }
+
+        JsonWebToken.sign({id: user._id, LoginName: user.LoginName}, MongoConfig.authenticationkey, {expiresIn: '10 days'}, function(error, token) {
+            if(error) {
+                return Rest.SendError(res, 1, 'Creating Token Failed', 400, error);
+            }
+            else{
+                return Rest.SendSuccessToken(res, token, user);
+            }
+        });
+    });
+}
+
+
