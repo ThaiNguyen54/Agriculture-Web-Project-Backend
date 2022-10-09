@@ -90,4 +90,16 @@ export function Login (req, res) {
     });
 }
 
+export function DeleteUser (req, res) {
+    let UserID = req.params.id || '';
+    UserManagement.Delete(UserID, function (errorCode, errorMessage, httpCode, errorDescription) {
+        if (errorCode) {
+            return Rest.SendError(res, errorCode, errorMessage, httpCode, errorDescription);
+        }
+        let ResultData = {};
+        ResultData.id = UserID;
+        return Rest.SendSuccess(res, ResultData, httpCode);
+    });
+}
+
 

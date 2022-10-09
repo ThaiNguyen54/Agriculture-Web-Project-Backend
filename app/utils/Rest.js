@@ -41,3 +41,21 @@ export function SendError (res, code, mess, httpCode, description, error) {
     res.contentType('json');
     return res.json(output);
 }
+
+export function SendSuccess (res, data, iHttpCode) {
+    if(!res) {
+        return;
+    }
+
+    let HttpStatus = iHttpCode ? iHttpCode : 200;
+    let out = null;
+
+    if(data) {
+        out = data;
+    }
+
+    res.status(HttpStatus);
+    res.contentType('json');
+
+    return res.json(out);
+}
