@@ -176,4 +176,6 @@ router.post('/login', UserControl.Login)
 
 router.delete('/delete/user/:id', UserControl.DeleteUser)
 
+router.put('/update/user/:id', UserControl.UpdateUser)
+
 export default router;

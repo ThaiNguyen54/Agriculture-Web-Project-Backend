@@ -3,6 +3,7 @@ import * as Utils from '../utils/utilFuncs.js'
 import User from '../models/user.js'
 import bcrypt  from "bcryptjs";
 import Validator from 'validator';
+import {Login} from "../controllers/userControll.js";
 
 
 export function Authenticate (LoginName, Password, callback) {
@@ -68,5 +69,54 @@ export function Delete(UserID, callback) {
         });
     } catch (error) {
         return callback(8, 'Delete failed', 400, error);
+    }
+}
+
+export function Update(UserID, UpdateData, callback) {
+    try{
+        if(!Utils.VariableTypeChecker(UserID, 'string') || !Validator.isMongoId(UserID)) {
+            return callback(8, 'invalid id', 400, 'User id is not a string', null);
+        }
+
+        let query = {};
+        query._id = UserID;
+        let update ={};
+        // update.updater = AccessUserID;
+
+        if(Utils.VariableTypeChecker(UpdateData.LoginName, 'string') &&
+            Validator.isAlphhanumeric(UpdateData.LoginName)) {
+            update.LoginName = UpdateData.LoginName;
+        }
+
+        if(Utils.VariableTypeChecker(UpdateData.UserName, 'string')) {
+            update.UserName = UpdateData.UserName;
+        }
+
+        if(Utils.VariableTypeChecker(UpdateData.Email, 'string')) {
+            update.Email = UpdateData.Email
+        }
+
+        let options = {
+            upsert: false,
+            new: true,
+            setDefaultsOnInsert: true,
+            projection: {password: false}
+        };
+
+        User.findOneAndUpdate(query, update, options, function (error, user) {
+            if (error) {
+                return callback(8, 'Find and Update failed', 420, error, null);
+            }
+
+            if (user) {
+                return callback(null, null, 200, null, user);
+            }
+            else{
+                return callback(8, 'User is Unavailable', 400, null, null);
+            }
+        });
+    }
+    catch (error){
+        return callback(8, 'Update failed', 400, error, null);
     }
 }

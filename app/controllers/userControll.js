@@ -102,4 +102,21 @@ export function DeleteUser (req, res) {
     });
 }
 
+export function UpdateUser (req, res){
+    // let AccessUserID = req.body.accessUserID || '';
+    let id = req.params.id || '';
+
+    // let AccessLoginName = req.body.accessLoginName || '';
+    let data = req.body || '';
+    UserManagement.Update(id, data, function(errorCode, errorMessage, httpCode, errorDescription, result){
+        if(errorCode){
+            return Rest.SendError(res, errorCode, errorMessage, httpCode, errorDescription);
+        }
+        let outResultData = {};
+        outResultData.id = result._id;
+        return Rest.SendSuccess(res, outResultData, httpCode);
+    });
+
+}
+
 
