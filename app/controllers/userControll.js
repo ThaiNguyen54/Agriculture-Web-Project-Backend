@@ -35,6 +35,14 @@ export const AddUserAccount = async(req, res) =>{
 }
 
 export function GetAllUser(req, res){
+    let accessUserId = req.query.accessUserId || '';
+    let accessUserRight = req.query.accessUserRight || '';
+    if(accessUserRight != 'ADMIN') {
+        return res.json({
+            'Error Code': 8,
+            'Error Description': 'Invalid User Right'
+        })
+    }
     users.find()
         .then(allUsers => {
             return res.status(200).json({
@@ -50,10 +58,22 @@ export function GetAllUser(req, res){
                 error: err.message
             });
         });
+
+
+
+
 }
 
 export function GetUserById(req, res){
+    let accessUserId = req.query.accessUserId || '';
+    let accessUserRight = req.query.accessUserRight || '';
     const id = req.params.UserID;
+    if (accessUserRight != id) {
+        return res.json({
+            "Error Code": 9,
+            "Error Description": "This content is not available"
+        })
+    }
     users.findById(id)
         .then((user) => {
             res.status(200).json({
@@ -92,6 +112,14 @@ export function Login (req, res) {
 
 export function DeleteUser (req, res) {
     let UserID = req.params.id || '';
+    let accessUserId = req.query.accessUserId || '';
+    let accessUserRight = req.query.accessUserRight || '';
+    if(accessUserRight != 'ADMIN') {
+        return res.json({
+            'Error Code': 8,
+            'Error Description': 'Invalid User Right'
+        })
+    }
     UserManagement.Delete(UserID, function (errorCode, errorMessage, httpCode, errorDescription) {
         if (errorCode) {
             return Rest.SendError(res, errorCode, errorMessage, httpCode, errorDescription);
@@ -103,6 +131,14 @@ export function DeleteUser (req, res) {
 }
 
 export function UpdateUser (req, res){
+    let accessUserId = req.query.accessUserId || '';
+    let accessUserRight = req.query.accessUserRight || '';
+    if(accessUserRight != 'ADMIN') {
+        return res.json({
+            'Error Code': 8,
+            'Error Description': 'Invalid User Right'
+        })
+    }
     // let AccessUserID = req.body.accessUserID || '';
     let id = req.params.id || '';
 

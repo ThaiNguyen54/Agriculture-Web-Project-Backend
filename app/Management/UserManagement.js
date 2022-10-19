@@ -123,9 +123,6 @@ export function Update(UserID, UpdateData, callback) {
 
 export function CheckUserAvailability (accessUserId, accessUserRight, accessLoginName, callback){
     try {
-        // console.log(accessUserId);
-        // console.log(accessLoginName);
-        // console.log(accessUserRight);
         if (!Utils.VariableTypeChecker(accessUserId, 'string')
             || !Validator.isMongoId(accessUserId)
             || !Utils.VariableTypeChecker(accessUserRight, 'string')

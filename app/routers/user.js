@@ -42,7 +42,7 @@ const router = express.Router();
  *       "message": "Incorrect Email/Password"
  *     }
  */
-router.post("/register", UserControl.AddUserAccount)
+router.post("/ver1/register", UserControl.AddUserAccount)
 
 /**
  * @api {GET} /users Get a list of all users
@@ -131,7 +131,7 @@ router.get("/ver1/authenticate/users", UserControl.GetAllUser)
  *          "error": "Cast to ObjectId failed for value \"633eb8f0069528b78658b65\" (type string) at path \"_id\" for model \"users\""
  *      }
  */
-router.get("/users/:UserID", UserControl.GetUserById)
+router.get("/ver1/users/:UserID", UserControl.GetUserById)
 
 
 /**
@@ -174,8 +174,8 @@ router.get("/users/:UserID", UserControl.GetUserById)
  */
 router.post('/login', UserControl.Login)
 
-router.delete('/delete/user/:id', UserControl.DeleteUser)
+router.delete('/ver1/authenticate/user/:id', UserControl.DeleteUser)
 
-router.put('/update/user/:id', UserControl.UpdateUser)
+router.put('ver1/authenticate/user/:id', UserControl.UpdateUser)
 
 export default router;
