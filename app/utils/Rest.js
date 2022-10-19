@@ -56,6 +56,5 @@ export function SendSuccess (res, data, iHttpCode) {
 
     res.status(HttpStatus);
     res.contentType('json');
-
     return res.json(out);
 }

@@ -79,7 +79,7 @@ export function Login (req, res) {
             return Rest.SendError(res, ErrorCode, ErrorMess, httpCode, ErrorDescript);
         }
 
-        JsonWebToken.sign({id: user._id, LoginName: user.LoginName}, MongoConfig.authenticationkey, {expiresIn: '10 days'}, function(error, token) {
+        JsonWebToken.sign({id: user._id, LoginName: user.LoginName, Email: user.Email, UserRight: user.UserRight}, MongoConfig.authenticationkey, {expiresIn: '10 days'}, function(error, token) {
             if(error) {
                 return Rest.SendError(res, 1, 'Creating Token Failed', 400, error);
             }

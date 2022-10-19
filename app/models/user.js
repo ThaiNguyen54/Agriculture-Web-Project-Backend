@@ -15,7 +15,7 @@ const UserDBSchema = new mongoose.Schema({
         type: String
     },
     UserRight: {
-        type: String // It is temporary String, will be modified later
+        type: String
     },
     Email: {
         type: String,

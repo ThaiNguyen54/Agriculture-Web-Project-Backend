@@ -4,9 +4,8 @@ import MongodbConfig from "../configs/MongodbConfig.js";
 import * as UserManagement from "../Management/UserManagement.js"
 import * as Rest from "../utils/Rest.js"
 
-export function authenticate(req, res, next) {
+export function Validate(req, res, next) {
     if(req.method === 'OPTIONS') {
-
         next()
     }
     let outToken = (req.body && req.body.access_token) || req.headers['access_token'] || (req.query && req.query.access_token);
@@ -17,6 +16,7 @@ export function authenticate(req, res, next) {
                 if(error) {
                     return Rest.SendError(res, 9, 'Verify token failed', 400, error);
                 }
+
                 UserManagement.CheckUserAvailability(decoded.id, decoded.UserRight, decoded.LoginName, function(errorCode, errorMessage, httpCode, errorDescription, user) {
                     if(errorCode) {
                         return Rest.SendError(res, errorCode, errorMessage, httpCode, errorDescription);
