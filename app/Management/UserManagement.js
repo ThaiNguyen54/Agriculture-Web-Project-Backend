@@ -120,3 +120,42 @@ export function Update(UserID, UpdateData, callback) {
         return callback(8, 'Update failed', 400, error, null);
     }
 }
+
+export function CheckUserAvailability (accessUserId, accessUserRight, accessLoginName, callback){
+    try {
+        if (!Utils.VariableTypeChecker(accessUserId, 'string')
+            || !Validator.isMongoId(accessUserId)
+            // || !Utils.VariableTypeChecker(accessUserRight, 'string')
+            || !Utils.VariableTypeChecker(accessLoginName, 'string')) {
+            return callback(8, 'invalid data', 400, 'User information is not a string', null)
+        }
+
+        User.findOne({LoginName: accessLoginName, _id: accessUserId, UserRight: accessUserRight}, function(error, user) {
+            if(error) {
+                return callback(8, 'Find User Failed', 420, error, null);
+            }
+
+            if(user) {
+                return callback(null, null, 200, null, user);
+            }
+            else {
+                return callback(8, 'User is Unavailable', 404, 'Not Found Any User', null);
+            }
+        });
+    }
+    catch (error) {
+        return callback(8, 'Check User Availability Failed', 400, error, null);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+

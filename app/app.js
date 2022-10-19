@@ -6,12 +6,16 @@ import cors from 'cors';
 import Userroute from './routers/user.js'
 import signup from './routers/signup.js'
 import mongoconfig from './configs/MongodbConfig.js'
+import * as Authenticate from './middlewares/Authenticate.js'
 //---------------------------> Express <-----------------------//
 const app = express();
 
 app.use(bodyParser.json({limit: "30mb"}));
 app.use(bodyParser.urlencoded({extended : true, limit: "30mb"}));
 app.use('/', cors());
+//---------------------------> Authenticate<-------------------------//
+app.all('/ver1/authenticate/*', Authenticate.authenticate);
+
 app.use(Userroute)
 
 app.use((req, res, next) => {
@@ -31,6 +35,8 @@ let port = process.env.PORT;
 if(port == null || port == ""){
     port = 3001;
 }
+
+
 
 //---------------------------> ListenPort <--------------------------//
 app.listen(port, () => {

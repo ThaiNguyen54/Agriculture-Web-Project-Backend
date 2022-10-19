@@ -86,7 +86,7 @@ router.post("/register", UserControl.AddUserAccount)
  *       "message": "invalid input"
  *     }
  */
-router.get("/users", UserControl.GetAllUser)
+router.get("/ver1/authenticate/users", UserControl.GetAllUser)
 
 /**
  * @api {GET} /users/:UserID Get a user by ID
