@@ -1,9 +1,16 @@
 {
-   "scripts": {
+  "name": "be",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./app/app.js",
+    "start": "node app.js",
     "docs": "apidoc -i ./routers -o apidoc/"
   },
+  "author": "Tin",
+  "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.0",
@@ -17,4 +24,7 @@
     "nodemon": "^2.0.20",
     "validator": "^13.7.0"
   },
+  "devDependencies": {
+    "apidoc": "^0.20.0"
+  }
 }
