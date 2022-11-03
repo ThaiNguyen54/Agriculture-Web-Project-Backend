@@ -37,6 +37,7 @@ export const AddUserAccount = async(req, res) =>{
 export function GetAllUser(req, res){
     let accessUserId = req.query.accessUserId || '';
     let accessUserRight = req.query.accessUserRight || '';
+    console.log(req.query)
     if(accessUserRight != 'ADMIN') {
         return res.json({
             'Error Code': 8,

@@ -4,6 +4,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import Userroute from './routers/user.js'
+import QuestionRoute from './routers/question.js'
 import signup from './routers/signup.js'
 import mongoconfig from './configs/MongodbConfig.js'
 import * as ValidateRequest from './middlewares/ValidateRequest.js'
@@ -17,6 +18,7 @@ app.use('/', cors());
 app.all('/ver1/authenticate/*', ValidateRequest.Validate);
 
 app.use(Userroute)
+app.use(QuestionRoute)
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');

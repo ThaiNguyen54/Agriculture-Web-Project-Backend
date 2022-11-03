@@ -22,7 +22,7 @@ export function Validate(req, res, next) {
                         return Rest.SendError(res, errorCode, errorMessage, httpCode, errorDescription);
                     }
 
-                    if(req.method === 'GET') {
+                    if(req.method === 'GET' || req.method === 'POST') {
                         req.query.accessUserId = decoded.id;
                         req.query.accessUserRight = decoded.UserRight;
                         req.query.accessLoginName = decoded.LoginName;
