@@ -6,7 +6,7 @@ export function SendSuccessToken (res, token, user) {
     }
 
     let out = {};
-
+    out.success = true;
     out.token = token;
     out.id = user._id;
     out.LoginName = user.LoginName;
@@ -18,14 +18,15 @@ export function SendSuccessToken (res, token, user) {
 
 }
 
-export function SendError (res, code, mess, httpCode, description, error) {
+export function SendError (res, code, message, httpCode, description, error) {
     if (!res) {
         return;
     }
 
     let output = {};
+    output.success = false;
     output.code = code;
-    output.mess = mess ? mess.toString() : "Unidentified error";
+    output.message = message ? message.toString() : "Unidentified error";
 
     if(description) {
         output.description = description.toString();
@@ -42,16 +43,19 @@ export function SendError (res, code, mess, httpCode, description, error) {
     return res.json(output);
 }
 
-export function SendSuccess (res, data, iHttpCode) {
+export function SendSuccess (res, data, iHttpCode, message) {
     if(!res) {
         return;
     }
 
     let HttpStatus = iHttpCode ? iHttpCode : 200;
-    let out = null;
+    let out = {
+        "success": true,
+        "message": message
+    };
 
     if(data) {
-        out = data;
+        out.data = data;
     }
 
     res.status(HttpStatus);

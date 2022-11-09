@@ -6,6 +6,9 @@ const QuestionDBSchema = new mongoose.Schema({
     UserID: {
         type: String
     },
+    Title: {
+        type: String
+    },
     QContent: {
         type: String
     },
