@@ -66,30 +66,30 @@ export function Update (AccessUserId, QuestionId, UpdateData, callback) {
                     update.Title = UpdateData.Title;
                 }
 
-                // Question.findOneAndUpdate(query, update, options, function (error, updatedQuestion) {
-                //     if (error) {
-                //         return callback(8, 'Update failed', 420, error, null);
-                //     }
-                //     if (updatedQuestion) {
-                //         console.log(updatedQuestion)
-                //         return callback(null, null, 200, null, updatedQuestion)
-                //     }
-                //     else {
-                //         return callback(8, 'Question is not available', 400, null, null)
-                //     }
-                // });
-
-                question.update(options, update, function (error, updatedQuestion) {
+                Question.findOneAndUpdate(query, update, options, function (error, updatedQuestion) {
                     if (error) {
                         return callback(8, 'Update failed', 420, error, null);
                     }
                     if (updatedQuestion) {
-                        return callback(null, null, 200, null, question)
+                        console.log(updatedQuestion)
+                        return callback(null, null, 200, null, updatedQuestion)
                     }
                     else {
                         return callback(8, 'Question is not available', 400, null, null)
                     }
                 });
+
+                // question.update(options, update, function (error, updatedQuestion) {
+                //     if (error) {
+                //         return callback(8, 'Update failed', 420, error, null);
+                //     }
+                //     if (updatedQuestion) {
+                //         return callback(null, null, 200, null, question)
+                //     }
+                //     else {
+                //         return callback(8, 'Question is not available', 400, null, null)
+                //     }
+                // });
             }
         })
     } catch (err) {

@@ -7,11 +7,11 @@ const QuestionDBSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    Title: {
+    QuestionID: {
         type: String,
         required: true,
     },
-    QContent: {
+    AContent: {
         type: String,
         required: true,
     },
@@ -29,9 +29,9 @@ const QuestionDBSchema = new mongoose.Schema({
         type: Date
     }
 }, {
-    collection: 'Questions',
+    collection: 'Answers',
     versionKey: false
 })
 
-const questions = mongoose.model('Questions', QuestionDBSchema);
+const questions = mongoose.model('Answers', QuestionDBSchema);
 export default questions;

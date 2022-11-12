@@ -7,31 +7,30 @@ const QuestionDBSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    Title: {
+    QuestionID: {
         type: String,
-        required: true,
     },
-    QContent: {
+    AnswerID: {
         type: String,
-        required: true,
     },
-    PostedDate: {
+    CommentID: {
+        type: String,
+    },
+    PostLikeDate: {
         type: Date,
         default: Date.now,
+        required: true,
     },
-    EditedDate: {
-        type: Date
-    },
-    isDeleted: {
+    IsDeleted: {
         type: Boolean
     },
     DeletedDate: {
         type: Date
     }
 }, {
-    collection: 'Questions',
+    collection: 'PostLikes',
     versionKey: false
 })
 
-const questions = mongoose.model('Questions', QuestionDBSchema);
+const questions = mongoose.model('PostLikes', QuestionDBSchema);
 export default questions;

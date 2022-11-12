@@ -13,7 +13,7 @@ export async function AddQuestion(req, res) {
             throw new Error("Can not upload your question!");
         }
         else {
-            res.json({
+            return res.json({
                 success: true,
                 message: "Your question has been posted",
                 question: QuestionInsertData,
@@ -21,7 +21,7 @@ export async function AddQuestion(req, res) {
         }
     }
     catch (error) {
-        res.status(404).send(error);
+        return res.status(404).send(error);
     }
 }
 
@@ -36,7 +36,7 @@ export function GetAllQuestion (req, res) {
                 });
             })
             .catch((err) => {
-                res.status(500).json({
+                return res.status(500).json({
                     success: false,
                     message: "Can not get questions. Please try again.",
                     error: err.message
@@ -44,7 +44,7 @@ export function GetAllQuestion (req, res) {
             })
     }
     catch (error) {
-        res.status(404).send(error)
+        return res.status(404).send(error)
     }
 
 }
@@ -57,13 +57,13 @@ export function GetQuestionByUserID (req, res) {
         questions.find({
             UserID: id
         }).then((questions) => {
-            res.status(200).json({
+            return res.status(200).json({
                 success: true,
                 message: `Questions of user ${id}`,
                 questions: questions
             });
         }).catch((err) => {
-            res.status(500).json({
+            return res.status(500).json({
                 success: false,
                 message: `Not Found any questions of user ${id}`,
                 error: err.message,
@@ -71,7 +71,7 @@ export function GetQuestionByUserID (req, res) {
         })
     }
     catch (err) {
-        res.status(404).send(error)
+        return res.status(404).send(error)
     }
 
 
@@ -100,7 +100,7 @@ export function UpdateQuestion (req, res) {
     let AccessUserId = req.body.accessUserId || '';
     let id = req.params.QuestionId || '';
     let data = req.body || '';
-
+    console.log(data)
     QuestionManagement.Update(AccessUserId, id, data, function (errorCode, errorMessage, httpCode, errorDescription, result) {
         if (errorCode) {
             return Rest.SendError(res, errorCode, errorMessage, httpCode, errorDescription);

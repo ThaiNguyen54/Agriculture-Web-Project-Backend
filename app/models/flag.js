@@ -7,31 +7,34 @@ const QuestionDBSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    Title: {
+    QuestionID: {
+        type: String,
+    },
+    AnswerID: {
+        type: String,
+    },
+    CommentID: {
+        type: String,
+    },
+    FlagName: {
         type: String,
         required: true,
     },
-    QContent: {
-        type: String,
-        required: true,
-    },
-    PostedDate: {
+    FlagDate: {
         type: Date,
         default: Date.now,
+        required: true,
     },
-    EditedDate: {
-        type: Date
-    },
-    isDeleted: {
+    IsDeleted: {
         type: Boolean
     },
     DeletedDate: {
         type: Date
     }
 }, {
-    collection: 'Questions',
+    collection: 'Flags',
     versionKey: false
 })
 
-const questions = mongoose.model('Questions', QuestionDBSchema);
+const questions = mongoose.model('Flags', QuestionDBSchema);
 export default questions;

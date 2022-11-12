@@ -16,25 +16,29 @@ export const AddUserAccount = async(req, res) =>{
         newUser.Password = hashedPassowrd;
         const CheckUserData = await users.findOne({Email: req.body.Email});
         if(CheckUserData){
-            res.status(409).send({
-                success: false,
-                code: 7,
-                message: "Email conflict",
-                description: "There is another account using this Email."
+            return (
+                res.status(409).send({
+                    success: false,
+                    code: 7,
+                    message: "Email conflict",
+                    description: "There is another account using this Email."
 
-            });
+                })
+            )
+
         }
         else{
             const UserInsertData = await users.insertMany(newUser);
             if(!UserInsertData){
                 throw new Error("Can not create your account");
             }else{
-                res.json({
-                    success: true,
-                    message: "Created your account successfully",
-                    User: UserInsertData,
-                })
-                return newUser.id
+                return (
+                    res.json({
+                        success: true,
+                        message: "Created your account successfully",
+                        User: UserInsertData,
+                    })
+                )
             }
         }
     }catch(err){
@@ -62,12 +66,15 @@ export function GetAllUser(req, res){
             });
         })
         .catch((err) => {
-            res.status(500).json({
-                success: false,
-                code: 8,
-                message: 'Can not get users. Please try again.',
-                description: err.message
-            });
+            return(
+                res.status(500).json({
+                    success: false,
+                    code: 8,
+                    message: 'Can not get users. Please try again.',
+                    description: err.message
+                })
+            )
+
         });
 
 
@@ -99,14 +106,14 @@ export function GetUserById(req, res){
     }
     users.findById(id)
         .then((user) => {
-            res.status(200).json({
+            return res.status(200).json({
                 success: true,
                 message: `Found one user with id: ${id}`,
                 users: user,
             });
         })
         .catch((err) => {
-            res.status(500).json({
+            return res.status(500).json({
                 success: false,
                 code: 8,
                 message: 'Not Found.',
