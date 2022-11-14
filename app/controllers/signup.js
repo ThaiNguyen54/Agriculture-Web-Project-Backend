@@ -1,5 +1,5 @@
 import users from "../models/user.js";
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 const postUserData = async (req, res) => {
     const Email = req.body.email;
     const Password = req.body.password;
