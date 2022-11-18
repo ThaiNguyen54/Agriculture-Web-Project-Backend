@@ -22,7 +22,7 @@ export function Validate(req, res, next) {
                         return Rest.SendError(res, errorCode, errorMessage, httpCode, errorDescription);
                     }
 
-                    if(req.method === 'GET') {
+                    if(req.method === 'GET' || req.method === 'POST' || req.method === 'DELETE') {
                         req.query.accessUserId = decoded.id;
                         req.query.accessUserRight = decoded.UserRight;
                         req.query.accessLoginName = decoded.LoginName;
@@ -41,6 +41,6 @@ export function Validate(req, res, next) {
         }
     }
     else{
-        return Rest.SendError(res, 9, 'Invalid Token', 400, null)
+        return Rest.SendError(res, 9, 'Invalid Token', 400, "You need to log in to perform the request")
     }
 }

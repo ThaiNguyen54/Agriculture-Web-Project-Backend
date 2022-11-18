@@ -1,9 +1,8 @@
-// import Validator from 'validator'
 import * as Utils from '../utils/utilFuncs.js'
 import User from '../models/user.js'
 import bcrypt  from "bcryptjs";
 import Validator from 'validator';
-import {Login} from "../controllers/userControll.js";
+
 
 
 export function Authenticate (LoginName, Password, callback) {
@@ -27,13 +26,13 @@ export function Authenticate (LoginName, Password, callback) {
                         return callback(null, null, 200, null, user);
                     }
                     else {
-                        return callback(8, 'Wrong Password', 422, null, null);
+                        return callback(8, 'Wrong Password', 422, "Pass word is not match with this account", null);
                     }
                 });
             }
             else
             {
-                return callback(8, 'unavailable', 404, null, null);
+                return callback(8, 'unavailable', 404, "Cannot find your account", null);
             }
         });
     }
@@ -43,10 +42,15 @@ export function Authenticate (LoginName, Password, callback) {
 
 }
 
-export function Delete(UserID, callback) {
+export function Delete(AccessUserId, AccessUserRight, UserID, callback) {
     try{
+        if(AccessUserRight !== "ADMIN" && AccessUserId !== UserID)
+        {
+            return callback(8, 'invalid_user_right', 403, "you don't have permission to perform this request", null);
+        }
+
         if(!Utils.VariableTypeChecker(UserID, 'string') || !Validator.isMongoId(UserID)) {
-            return callback(8, 'invalid_id', 400, 'user id is not a string');
+            return callback(8, 'invalid_id', 400, 'The inputted user id is in wrong format');
         }
 
         let query = {_id: UserID};
@@ -72,16 +76,20 @@ export function Delete(UserID, callback) {
     }
 }
 
-export function Update(UserID, UpdateData, callback) {
+export function Update(AccessUserID, AccessUserRight, UserID, UpdateData, callback) {
     try{
+        if(AccessUserRight !== "ADMIN" && AccessUserID !== UserID){
+            return callback(8, 'invalid_user_right', 403, "you don't have permission to perform this request", null);
+        }
+
         if(!Utils.VariableTypeChecker(UserID, 'string') || !Validator.isMongoId(UserID)) {
             return callback(8, 'invalid id', 400, 'User id is not a string', null);
         }
 
         let query = {};
         query._id = UserID;
-        let update ={};
-        // update.updater = AccessUserID;
+        let update = {};
+        update.UpdatedBy = AccessUserID;
 
         if(Utils.VariableTypeChecker(UpdateData.LoginName, 'string') &&
             Validator.isAlphhanumeric(UpdateData.LoginName)) {

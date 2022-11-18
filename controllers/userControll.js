@@ -4,6 +4,7 @@ import * as UserManagement from '../Management/UserManagement.js';
 import JsonWebToken from 'jsonwebtoken';
 import * as Rest from '../utils/Rest.js';
 import MongoConfig from '../configs/MongodbConfig.js'
+import Validator from 'validator';
 
 export const AddUserAccount = async(req, res) =>{
 
@@ -15,18 +16,29 @@ export const AddUserAccount = async(req, res) =>{
         newUser.Password = hashedPassowrd;
         const CheckUserData = await users.findOne({Email: req.body.Email});
         if(CheckUserData){
-            res.status(409).send({message: "Incorrect Email/Password"});
+            return (
+                res.status(409).send({
+                    success: false,
+                    code: 7,
+                    message: "Email conflict",
+                    description: "There is another account using this Email."
+
+                })
+            )
+
         }
         else{
             const UserInsertData = await users.insertMany(newUser);
             if(!UserInsertData){
-                throw new Error("Can not upload");
+                throw new Error("Can not create your account");
             }else{
-                // res.send(UserInsertData);
-                res.json({
-                    message: "Created Successfully",
-                    User: UserInsertData,
-                })
+                return (
+                    res.json({
+                        success: true,
+                        message: "Created your account successfully",
+                        User: UserInsertData,
+                    })
+                )
             }
         }
     }catch(err){
@@ -39,8 +51,10 @@ export function GetAllUser(req, res){
     let accessUserRight = req.query.accessUserRight || '';
     if(accessUserRight != 'ADMIN') {
         return res.json({
-            'Error Code': 8,
-            'Error Description': 'Invalid User Right'
+            'success': false,
+            'code': 8,
+            'message': 'Cannot get all users.',
+            'description': 'Invalid User Right'
         })
     }
     users.find()
@@ -48,15 +62,19 @@ export function GetAllUser(req, res){
             return res.status(200).json({
                 success: true,
                 message: 'List of all users',
-                users: allUsers,
+                Users: allUsers,
             });
         })
         .catch((err) => {
-            res.status(500).json({
-                success: false,
-                message: 'Can not get users. Please try again.',
-                error: err.message
-            });
+            return(
+                res.status(500).json({
+                    success: false,
+                    code: 8,
+                    message: 'Can not get users. Please try again.',
+                    description: err.message
+                })
+            )
+
         });
 
 
@@ -68,25 +86,38 @@ export function GetUserById(req, res){
     let accessUserId = req.query.accessUserId || '';
     let accessUserRight = req.query.accessUserRight || '';
     const id = req.params.UserID;
-    if (accessUserRight != id) {
-        return res.json({
-            "Error Code": 9,
-            "Error Description": "This content is not available"
+
+    if(!Validator.isMongoId(id)) {
+        return res.status(400).json({
+            "success": false,
+            "code": 8,
+            "message": "Invalid user id",
+            "description": "The inputted user id is in wrong format"
+        })
+    }
+
+    if (accessUserId != id) {
+        return res.status(403).json({
+            "success": false,
+            "code": 9,
+            "message": "Not available",
+            "description": "This content is not available"
         })
     }
     users.findById(id)
         .then((user) => {
-            res.status(200).json({
+            return res.status(200).json({
                 success: true,
                 message: `Found one user with id: ${id}`,
                 users: user,
             });
         })
         .catch((err) => {
-            res.status(500).json({
+            return res.status(500).json({
                 success: false,
+                code: 8,
                 message: 'Not Found.',
-                error: err.message,
+                description: err.message,
             });
         });
 }
@@ -94,9 +125,9 @@ export function GetUserById(req, res){
 export function Login (req, res) {
     let LoginName = req.body.LoginName || '';
     let Password = req.body.Password || '';
-    UserManagement.Authenticate(LoginName, Password, function (ErrorCode, ErrorMess, httpCode, ErrorDescript, user) {
+    UserManagement.Authenticate(LoginName, Password, function (ErrorCode, ErrorMess, httpCode, ErrorDescription, user) {
         if (ErrorCode) {
-            return Rest.SendError(res, ErrorCode, ErrorMess, httpCode, ErrorDescript);
+            return Rest.SendError(res, ErrorCode, ErrorMess, httpCode, ErrorDescription);
         }
 
         JsonWebToken.sign({id: user._id, LoginName: user.LoginName, Email: user.Email, UserRight: user.UserRight}, MongoConfig.authenticationkey, {expiresIn: '10 days'}, function(error, token) {
@@ -111,46 +142,35 @@ export function Login (req, res) {
 }
 
 export function DeleteUser (req, res) {
-    let UserID = req.params.id || '';
+    let UserID = req.params.UserID || '';
     let accessUserId = req.query.accessUserId || '';
     let accessUserRight = req.query.accessUserRight || '';
-    if(accessUserRight != 'ADMIN') {
-        return res.json({
-            'Error Code': 8,
-            'Error Description': 'Invalid User Right'
-        })
-    }
-    UserManagement.Delete(UserID, function (errorCode, errorMessage, httpCode, errorDescription) {
+    UserManagement.Delete(accessUserId, accessUserRight, UserID, function (errorCode, errorMessage, httpCode, errorDescription) {
         if (errorCode) {
             return Rest.SendError(res, errorCode, errorMessage, httpCode, errorDescription);
         }
         let ResultData = {};
         ResultData.id = UserID;
-        return Rest.SendSuccess(res, ResultData, httpCode);
+        return Rest.SendSuccess(res, ResultData, httpCode, "Deleted a user");
     });
 }
 
 export function UpdateUser (req, res){
-    let accessUserId = req.query.accessUserId || '';
-    let accessUserRight = req.query.accessUserRight || '';
-    if(accessUserRight != 'ADMIN') {
-        return res.json({
-            'Error Code': 8,
-            'Error Description': 'Invalid User Right'
-        })
-    }
-    // let AccessUserID = req.body.accessUserID || '';
-    let id = req.params.id || '';
 
-    // let AccessLoginName = req.body.accessLoginName || '';
+    let AccessUserId = req.body.accessUserId || '';
+    let AccessUserRight = req.body.accessUserRight || '';
+
+
+    let id = req.params.UserID || '';
     let data = req.body || '';
-    UserManagement.Update(id, data, function(errorCode, errorMessage, httpCode, errorDescription, result){
+
+    UserManagement.Update(AccessUserId, AccessUserRight, id, data, function(errorCode, errorMessage, httpCode, errorDescription, result){
         if(errorCode){
             return Rest.SendError(res, errorCode, errorMessage, httpCode, errorDescription);
         }
         let outResultData = {};
         outResultData.id = result._id;
-        return Rest.SendSuccess(res, outResultData, httpCode);
+        return Rest.SendSuccess(res, outResultData, httpCode, "Updated a user");
     });
 
 }
