@@ -32,7 +32,7 @@ const UserDBSchema = new mongoose.Schema({
     Avatar:{
         type: String
     },
-    BackGroundImg: {
+    BackgroundImg: {
         type: String
     },
     CreatedBy: {
