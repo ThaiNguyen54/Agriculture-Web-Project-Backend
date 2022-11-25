@@ -11,6 +11,9 @@ export function SendSuccessToken (res, token, user) {
     out.id = user._id;
     out.LoginName = user.LoginName;
     out.UserName = user.UserName;
+    out.RegisterDate = user.RegisterDate;
+    out.BackGround = user.BackGround;
+    out.Avatar = user.Avatar;
 
     res.status(200);
     res.contentType('json');

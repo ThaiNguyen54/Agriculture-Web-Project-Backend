@@ -29,6 +29,12 @@ const UserDBSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
+    Avatar:{
+        type: String
+    },
+    BackGroundImg: {
+        type: String
+    },
     CreatedBy: {
         type: String
     },
