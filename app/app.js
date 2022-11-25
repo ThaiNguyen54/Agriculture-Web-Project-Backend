@@ -20,7 +20,7 @@ app.use(bodyParser.json({limit: "30mb"}));
 app.use(bodyParser.urlencoded({extended : true, limit: "30mb"}));
 app.use('/', cors());
 //---------------------------> Authenticate<-------------------------//
-app.all('/ver1/authenticate/*', ValidateRequest.Validate);
+app.all('/authenticate/*', ValidateRequest.Validate);
 
 app.use(Userroute)
 app.use(QuestionRoute)

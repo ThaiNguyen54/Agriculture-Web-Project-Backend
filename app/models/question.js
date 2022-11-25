@@ -11,7 +11,7 @@ const QuestionDBSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    TagName:{
+    TagName: {
         type: String,
         required: true
     },
