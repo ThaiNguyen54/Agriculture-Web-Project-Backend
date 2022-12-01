@@ -7,9 +7,9 @@ const QuestionDBSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    QuestionID: {
-        type: String,
-    },
+    // QuestionID: {
+    //     type: String,
+    // },
     AnswerID: {
         type: String,
     },

@@ -104,6 +104,14 @@ export function Update(AccessUserID, AccessUserRight, UserID, UpdateData, callba
             update.Email = UpdateData.Email
         }
 
+        if(Utils.VariableTypeChecker(UpdateData.Avatar, 'string')) {
+            update.Avatar = UpdateData.Avatar
+        }
+
+        if(Utils.VariableTypeChecker(UpdateData.BackgroundImg, 'string')) {
+            update.BackgroundImg = UpdateData.BackgroundImg
+        }
+
         let options = {
             upsert: false,
             new: true,

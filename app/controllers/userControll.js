@@ -49,21 +49,33 @@ export const AddUserAccount = async(req, res) =>{
 export function GetAllUser(req, res){
     let accessUserId = req.query.accessUserId || '';
     let accessUserRight = req.query.accessUserRight || '';
-    if(accessUserRight != 'ADMIN') {
-        return res.json({
-            'success': false,
-            'code': 8,
-            'message': 'Cannot get all users.',
-            'description': 'Invalid User Right'
-        })
-    }
+
+    // if(accessUserRight != 'ADMIN') {
+    //     return res.json({
+    //         'success': false,
+    //         'code': 8,
+    //         'message': 'Cannot get all users.',
+    //         'description': 'Invalid User Right'
+    //     })
+    // }
+
     users.find()
+        .select('_id UserName Avatar BackgroundImg')
         .then(allUsers => {
-            return res.status(200).json({
-                success: true,
-                message: 'List of all users',
-                Users: allUsers,
-            });
+            // return res.status(200).json({
+            //     success: true,
+            //     message: 'List of all users',
+            //     Users: allUsers,
+            // });
+
+            res.status(200).json(allUsers.map((item) => {
+                return {
+                    userId: item._id,
+                    userName: item.UserName,
+                    avatarImg: item.Avatar,
+                    backgroundImg: item.BackgroundImg,
+                }
+            }))
         })
         .catch((err) => {
             return(
@@ -76,10 +88,6 @@ export function GetAllUser(req, res){
             )
 
         });
-
-
-
-
 }
 
 export function GetUserById(req, res){
