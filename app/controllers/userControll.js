@@ -49,21 +49,16 @@ export const AddUserAccount = async(req, res) =>{
 export function GetAllUser(req, res){
     let accessUserId = req.query.accessUserId || '';
     let accessUserRight = req.query.accessUserRight || '';
-    if(accessUserRight != 'ADMIN') {
-        return res.json({
-            'success': false,
-            'code': 8,
-            'message': 'Cannot get all users.',
-            'description': 'Invalid User Right'
-        })
-    }
     users.find()
         .then(allUsers => {
-            return res.status(200).json({
-                success: true,
-                message: 'List of all users',
-                Users: allUsers,
-            });
+            res.status(200).json(allUsers.map((item) => {
+                return {
+                    userId: item._id,
+                    userName: item.UserName,
+                    avatarImg: item.Avatar,
+                    backgroundImg: item.BackgroundImg,
+                }
+            }))
         })
         .catch((err) => {
             return(
@@ -74,12 +69,7 @@ export function GetAllUser(req, res){
                     description: err.message
                 })
             )
-
         });
-
-
-
-
 }
 
 export function GetUserById(req, res){

@@ -23,7 +23,13 @@ const UserDBSchema = new mongoose.Schema({
     },
     Email: {
         type: String,
-        required: true,
+        required: true
+    },
+    Avatar: {
+        type: String,
+    },
+    BackgroundImg: {
+        type: String
     },
     RegisterDate: {
         type: Date,
