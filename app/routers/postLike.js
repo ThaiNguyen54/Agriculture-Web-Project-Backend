@@ -192,7 +192,8 @@ router.get("/ver1/post-like/answer/:AnswerID", PostLikeControl.GetPostLikeByAnsw
  *
  */
 router.get("/ver1/post-like/comment/:CommentID", PostLikeControl.GetPostLikeByCommentID)
-router.delete("/ver1/authenticate/post-like/:PostLikeId", PostLikeControl.DeletePostLike)
+
+// router.delete("/ver1/authenticate/post-like/:PostLikeId", PostLikeControl.DeletePostLike)
 
 
 export default router;
