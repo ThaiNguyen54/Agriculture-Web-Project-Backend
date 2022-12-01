@@ -85,6 +85,7 @@ export function DeleteQuestion (req, res) {
     let accessUserRight = req.query.accessUserRight || '';
     let accessUserId = req.query.accessUserId || '';
     let QuestionId = req.params.QuestionId || '';
+    
 
     QuestionManagement.Delete(QuestionId, accessUserRight, accessUserId, function (errorCode, errorMessage, httpCode, errorDescription) {
         if(errorCode) {

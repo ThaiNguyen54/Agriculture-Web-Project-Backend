@@ -157,8 +157,7 @@ router.get("/ver1/questions/:UserID", QuestionControl.GetQuestionByUserID)
  *     "description": "You have no permission to perform this request"
  * }
  */
-// router.delete("/ver1/authenticate/questions/:QuestionId", QuestionControl.DeleteQuestion)
-router.delete("/ver1/questions/:QuestionId", QuestionControl.DeleteQuestion)
+router.delete("/ver1/authenticate/questions/:QuestionId", QuestionControl.DeleteQuestion)
 
 
 
