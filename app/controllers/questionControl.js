@@ -13,7 +13,7 @@ export async function AddQuestion(req, res) {
             throw new Error("Can not upload your question!");
         }
         else {
-            return res.json({
+            return res.status(200).send({
                 success: true,
                 message: "Your question has been posted",
                 question: QuestionInsertData,
@@ -71,7 +71,7 @@ export function GetQuestionByUserID (req, res) {
         })
     }
     catch (err) {
-        return res.status(404).send(error)
+        return res.status(404).send(err)
     }
 
 

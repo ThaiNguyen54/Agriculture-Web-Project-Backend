@@ -11,7 +11,15 @@ const QuestionDBSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    TagName: {
+        type: String,
+        required: true
+    },
     QContent: {
+        type: String,
+        required: true,
+    },
+    TagName: {
         type: String,
         required: true,
     },

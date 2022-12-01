@@ -23,10 +23,11 @@ export function Authenticate (LoginName, Password, callback) {
             if(user) {
                 bcrypt.compare(Password, user.Password, function (error, result) {
                     if (result === true) {
+                        const success = {success : true}
                         return callback(null, null, 200, null, user);
                     }
                     else {
-                        return callback(8, 'Wrong Password', 422, "Pass word is not match with this account", null);
+                        return callback(8, 'Wrong Password', 422, "Password is not match with this account", null);
                     }
                 });
             }
@@ -102,6 +103,14 @@ export function Update(AccessUserID, AccessUserRight, UserID, UpdateData, callba
 
         if(Utils.VariableTypeChecker(UpdateData.Email, 'string')) {
             update.Email = UpdateData.Email
+        }
+
+        if(Utils.VariableTypeChecker(UpdateData.Avatar, 'string')) {
+            update.Avatar = UpdateData.Avatar
+        }
+
+        if(Utils.VariableTypeChecker(UpdateData.BackgroundImg, 'string')) {
+            update.BackgroundImg = UpdateData.BackgroundImg
         }
 
         let options = {
