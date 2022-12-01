@@ -21,6 +21,12 @@ const UserDBSchema = new mongoose.Schema({
         type: String,
         required:  true
     },
+    Avatar: {
+      type: String
+    },
+    BackgroundImg: {
+      type: String
+    },
     Email: {
         type: String,
         required: true,
