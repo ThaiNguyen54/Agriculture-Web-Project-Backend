@@ -211,7 +211,7 @@ require([
     /**
      * Add navigation items by analyzing the HTML content and searching for h1 and h2 tags
      * @param nav Object the navigation array
-     * @param content string the compiled1 HTML content
+     * @param content string the compiled HTML content
      * @param index where to insert items
      * @return boolean true if any good-looking (i.e. with a group identifier) <h1> tag was found
      */
