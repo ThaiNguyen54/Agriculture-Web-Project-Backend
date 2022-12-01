@@ -138,7 +138,7 @@ router.post("/ver1/user", UserControl.AddUserAccount)
  *          "description": "You need to log in to perform the request"
  *      }
  */
-router.get("/ver1/authenticate/users", UserControl.GetAllUser)
+router.get("/ver1/users", UserControl.GetAllUser)
 
 /**
  * @api {GET} /ver1/users/:UserID Get a user by ID
