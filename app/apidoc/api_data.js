@@ -1312,49 +1312,22 @@ define({ "api": [
     "groupTitle": "Flag"
   },
   {
-    "type": "POST",
-    "url": "/ver1/authenticate/post-like",
-    "title": "Like a post (comment, question, answer)",
+    "type": "GET",
+    "url": "/ver1/post-like",
+    "title": "View all likes in the system",
     "version": "1.0.0",
-    "name": "AddPostLike",
+    "name": "GetAllPostLike",
     "group": "Post_Like",
     "permission": [
       {
         "name": "Every type of user"
       }
     ],
-    "description": "<p>User use this api to like a comment, a question or an answer</p>",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": false,
-            "field": "CommentID",
-            "description": "<p>Id of the comment that is being flagged</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": false,
-            "field": "AnswerID",
-            "description": "<p>Id of the answer that is being flagged</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": false,
-            "field": "QuestionID",
-            "description": "<p>Id of the question that is being flagged</p>"
-          }
-        ]
-      }
-    },
+    "description": "<p>User use this api to view all post like in the system</p>",
     "examples": [
       {
         "title": "Example usage:",
-        "content": "curl -i http://localhost:3001/ver1/authenticate/post-like",
+        "content": "curl -i http://localhost:3001/ver1/post-like",
         "type": "json"
       }
     ],
@@ -1379,34 +1352,295 @@ define({ "api": [
             "group": "Success 200",
             "type": "Object[]",
             "optional": false,
-            "field": "flag",
-            "description": "<p>Information of the flag</p>"
+            "field": "likes",
+            "description": "<p>Information of all likes in the system</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "    HTTP/1.1 200 OK\n{\n    \"success\": true,\n    \"message\": \"Flag successfully\",\n    \"flag\": [\n        {\n            \"CommentID\": \"636e57cd711b869f157330b2\",\n            \"FlagName\": \"asdfxcvzxcvzxcv\",\n            \"_id\": \"6388db952852d2ab527db441\",\n            \"FlagDate\": \"2022-12-01T16:51:33.128Z\",\n            \"UserID\": \"6368bcb887e84601d546dcc4\"\n        }\n    ]\n}",
+          "content": "    HTTP/1.1 200 OK\n{\n   \"success\": true,\n    \"message\": \"List of all likes\",\n    \"likes\": [\n        {\n            \"_id\": \"63887dd9061cd89d6376d706\",\n            \"UserID\": \"637653c86faa44c3c5dd964a\",\n            \"QuestionID\": \"63785e884683c153e4e3453b\",\n            \"PostLikeDate\": \"2022-12-01T10:11:37.502Z\"\n         }\n\n     ]\n}",
           "type": "json"
         }
       ]
     },
-    "error": {
+    "filename": "routers/postLike.js",
+    "groupTitle": "Post_Like"
+  },
+  {
+    "type": "GET",
+    "url": "/ver1/post-like/answer/:AnswerID",
+    "title": "View all post likes of a question",
+    "version": "1.0.0",
+    "name": "GetPostLikeByAnswerID",
+    "group": "Post_Like",
+    "permission": [
+      {
+        "name": "Every type of user"
+      }
+    ],
+    "description": "<p>User use this api to view all post likes of an answer</p>",
+    "parameter": {
       "fields": {
-        "Error 4xx": [
+        "Parameter": [
           {
-            "group": "Error 4xx",
+            "group": "Parameter",
+            "type": "string",
             "optional": false,
-            "field": "400_Bad_Request",
-            "description": "<p>Authenticate failed</p>"
+            "field": "AnswerID",
+            "description": "<p>Id of a answer</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "curl -i http://localhost:3001/ver1/post-like/answer/:AnswerID",
+        "type": "json"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "success",
+            "description": "<p>state of the request</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>Something from the server</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "likes",
+            "description": "<p>Information of all likes of an answer</p>"
           }
         ]
       },
       "examples": [
         {
-          "title": "Error-Response:",
-          "content": "HTTP/1.1 400 Bad Request\n{\n     \"success\": false,\n     \"code\": 9,\n     \"message\": \"Invalid Token\",\n     \"description\": \"You need to log in to perform the request\"\n }",
+          "title": "Success-Response:",
+          "content": "    HTTP/1.1 200 OK\n{\n   \"success\": true,\n    \"message\": \"Likes on question 63785e884683c153e4e3453b\",\n    \"likes\": [\n        {\n            \"_id\": \"63887dd9061cd89d6376d706\",\n            \"UserID\": \"637653c86faa44c3c5dd964a\",\n            \"AnswerID\": \"63785e884683c153e4e3453b\",\n            \"PostLikeDate\": \"2022-12-01T10:11:37.502Z\"\n        }\n    ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "routers/postLike.js",
+    "groupTitle": "Post_Like"
+  },
+  {
+    "type": "GET",
+    "url": "/ver1/post-like/comment/:CommentID",
+    "title": "View all post likes of a comment",
+    "version": "1.0.0",
+    "name": "GetPostLikeByCommentID",
+    "group": "Post_Like",
+    "permission": [
+      {
+        "name": "Every type of user"
+      }
+    ],
+    "description": "<p>User use this api to view all post likes of a comment</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "AnswerID",
+            "description": "<p>Id of a answer</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "curl -i http://localhost:3001/ver1/post-like/comment/:CommentID",
+        "type": "json"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "success",
+            "description": "<p>state of the request</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>Something from the server</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "likes",
+            "description": "<p>Information of all likes of a comment</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "    HTTP/1.1 200 OK\n{\n   \"success\": true,\n    \"message\": \"Flags on comment 6387764f05d1aa0e48681629\",\n    \"likes\": [\n        {\n            \"_id\": \"6388e0262852d2ab527db466\",\n            \"CommentID\": \"6387764f05d1aa0e48681629\",\n            \"PostLikeDate\": \"2022-12-01T17:11:02.638Z\",\n            \"UserID\": \"6368bcb887e84601d546dcc4\"\n        }\n    ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "routers/postLike.js",
+    "groupTitle": "Post_Like"
+  },
+  {
+    "type": "GET",
+    "url": "/ver1/post-like/question/:QuestionID",
+    "title": "View all post likes of a question",
+    "version": "1.0.0",
+    "name": "GetPostLikeByQuestionID",
+    "group": "Post_Like",
+    "permission": [
+      {
+        "name": "Every type of user"
+      }
+    ],
+    "description": "<p>User use this api to view all post likes of a question</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "QuestionID",
+            "description": "<p>Id of a question</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "curl -i http://localhost:3001/ver1/post-like/question/:QuestionID",
+        "type": "json"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "success",
+            "description": "<p>state of the request</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>Something from the server</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "likes",
+            "description": "<p>Information of all likes of a question</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "    HTTP/1.1 200 OK\n{\n   \"success\": true,\n    \"message\": \"Likes on question 63785e884683c153e4e3453b\",\n    \"likes\": [\n        {\n            \"_id\": \"63887dd9061cd89d6376d706\",\n            \"UserID\": \"637653c86faa44c3c5dd964a\",\n            \"QuestionID\": \"63785e884683c153e4e3453b\",\n            \"PostLikeDate\": \"2022-12-01T10:11:37.502Z\"\n        }\n    ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "routers/postLike.js",
+    "groupTitle": "Post_Like"
+  },
+  {
+    "type": "GET",
+    "url": "/ver1/post-like/user/:UserID",
+    "title": "View all post likes of a user",
+    "version": "1.0.0",
+    "name": "GetPostLikeByUserID",
+    "group": "Post_Like",
+    "permission": [
+      {
+        "name": "Every type of user"
+      }
+    ],
+    "description": "<p>User use this api to view all post likes of another user</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "UserID",
+            "description": "<p>Id of a user</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "curl -i http://localhost:3001/ver1/post-like/user/:UserID",
+        "type": "json"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "success",
+            "description": "<p>state of the request</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>Something from the server</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "likes",
+            "description": "<p>Information of all likes of a user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "    HTTP/1.1 200 OK\n{\n   \"success\": true,\n    \"message\": \"Likes of user 637653c86faa44c3c5dd964a\",\n    \"likes\": [\n        {\n            \"_id\": \"63887dd9061cd89d6376d706\",\n            \"UserID\": \"637653c86faa44c3c5dd964a\",\n            \"QuestionID\": \"63785e884683c153e4e3453b\",\n            \"PostLikeDate\": \"2022-12-01T10:11:37.502Z\"\n        }\n     ]\n}",
           "type": "json"
         }
       ]

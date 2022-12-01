@@ -6,57 +6,191 @@ import * as PostLikeControl from '../controllers/postLikeControl.js'
 const router = express.Router();
 
 
+
+router.post("/ver1/authenticate/post-like", PostLikeControl.AddPostLike)
+
+
 /**
- * @api {POST} /ver1/authenticate/post-like Like a post (comment, question, answer)
+ * @api {GET} /ver1/post-like View all likes in the system
  * @apiVersion 1.0.0
- * @apiName AddPostLike
+ * @apiName GetAllPostLike
  * @apiGroup Post Like
  * @apiPermission Every type of user
  *
- * @apiDescription User use this api to like a comment, a question or an answer
+ * @apiDescription User use this api to view all post like in the system
  *
- * @apiParam {string} CommentID Id of the comment that is being flagged
- * @apiParam {string} AnswerID Id of the answer that is being flagged
- * @apiParam {string} QuestionID Id of the question that is being flagged
  *
  * @apiExample Example usage:
- * curl -i http://localhost:3001/ver1/authenticate/post-like
+ * curl -i http://localhost:3001/ver1/post-like
  *
  * @apiSuccess {Boolean} success state of the request
  * @apiSuccess {String} message Something from the server
- * @apiSuccess {Object[]} flag Information of the flag
+ * @apiSuccess {Object[]} likes Information of all likes in the system
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  * {
- *     "success": true,
- *     "message": "Flag successfully",
- *     "flag": [
+ *    "success": true,
+ *     "message": "List of all likes",
+ *     "likes": [
  *         {
- *             "CommentID": "636e57cd711b869f157330b2",
- *             "FlagName": "asdfxcvzxcvzxcv",
- *             "_id": "6388db952852d2ab527db441",
- *             "FlagDate": "2022-12-01T16:51:33.128Z",
+ *             "_id": "63887dd9061cd89d6376d706",
+ *             "UserID": "637653c86faa44c3c5dd964a",
+ *             "QuestionID": "63785e884683c153e4e3453b",
+ *             "PostLikeDate": "2022-12-01T10:11:37.502Z"
+ *          }
+ *
+ *      ]
+ * }
+ *
+ */
+router.get("/ver1/post-like", PostLikeControl.GetAllPostLike)
+
+
+/**
+ * @api {GET} /ver1/post-like/user/:UserID View all post likes of a user
+ * @apiVersion 1.0.0
+ * @apiName GetPostLikeByUserID
+ * @apiGroup Post Like
+ * @apiPermission Every type of user
+ *
+ * @apiDescription User use this api to view all post likes of another user
+ *
+ * @apiParam {string} UserID Id of a user
+ *
+ *
+ * @apiExample Example usage:
+ * curl -i http://localhost:3001/ver1/post-like/user/:UserID
+ *
+ * @apiSuccess {Boolean} success state of the request
+ * @apiSuccess {String} message Something from the server
+ * @apiSuccess {Object[]} likes Information of all likes of a user
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ * {
+ *    "success": true,
+ *     "message": "Likes of user 637653c86faa44c3c5dd964a",
+ *     "likes": [
+ *         {
+ *             "_id": "63887dd9061cd89d6376d706",
+ *             "UserID": "637653c86faa44c3c5dd964a",
+ *             "QuestionID": "63785e884683c153e4e3453b",
+ *             "PostLikeDate": "2022-12-01T10:11:37.502Z"
+ *         }
+ *      ]
+ * }
+ *
+ */
+router.get("/ver1/post-like/user/:UserID", PostLikeControl.GetPostLikeByUserID)
+
+
+/**
+ * @api {GET} /ver1/post-like/question/:QuestionID View all post likes of a question
+ * @apiVersion 1.0.0
+ * @apiName GetPostLikeByQuestionID
+ * @apiGroup Post Like
+ * @apiPermission Every type of user
+ *
+ * @apiDescription User use this api to view all post likes of a question
+ *
+ * @apiParam {string} QuestionID Id of a question
+ *
+ *
+ * @apiExample Example usage:
+ * curl -i http://localhost:3001/ver1/post-like/question/:QuestionID
+ *
+ * @apiSuccess {Boolean} success state of the request
+ * @apiSuccess {String} message Something from the server
+ * @apiSuccess {Object[]} likes Information of all likes of a question
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ * {
+ *    "success": true,
+ *     "message": "Likes on question 63785e884683c153e4e3453b",
+ *     "likes": [
+ *         {
+ *             "_id": "63887dd9061cd89d6376d706",
+ *             "UserID": "637653c86faa44c3c5dd964a",
+ *             "QuestionID": "63785e884683c153e4e3453b",
+ *             "PostLikeDate": "2022-12-01T10:11:37.502Z"
+ *         }
+ *     ]
+ * }
+ *
+ */
+router.get("/ver1/post-like/question/:QuestionID", PostLikeControl.GetPostLikeByQuestionID)
+
+
+/**
+ * @api {GET} /ver1/post-like/answer/:AnswerID View all post likes of a question
+ * @apiVersion 1.0.0
+ * @apiName GetPostLikeByAnswerID
+ * @apiGroup Post Like
+ * @apiPermission Every type of user
+ *
+ * @apiDescription User use this api to view all post likes of an answer
+ *
+ * @apiParam {string} AnswerID Id of a answer
+ *
+ *
+ * @apiExample Example usage:
+ * curl -i http://localhost:3001/ver1/post-like/answer/:AnswerID
+ *
+ * @apiSuccess {Boolean} success state of the request
+ * @apiSuccess {String} message Something from the server
+ * @apiSuccess {Object[]} likes Information of all likes of an answer
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ * {
+ *    "success": true,
+ *     "message": "Likes on question 63785e884683c153e4e3453b",
+ *     "likes": [
+ *         {
+ *             "_id": "63887dd9061cd89d6376d706",
+ *             "UserID": "637653c86faa44c3c5dd964a",
+ *             "AnswerID": "63785e884683c153e4e3453b",
+ *             "PostLikeDate": "2022-12-01T10:11:37.502Z"
+ *         }
+ *     ]
+ * }
+ *
+ */
+router.get("/ver1/post-like/answer/:AnswerID", PostLikeControl.GetPostLikeByAnswerID)
+
+
+/**
+ * @api {GET} /ver1/post-like/comment/:CommentID View all post likes of a comment
+ * @apiVersion 1.0.0
+ * @apiName GetPostLikeByCommentID
+ * @apiGroup Post Like
+ * @apiPermission Every type of user
+ *
+ * @apiDescription User use this api to view all post likes of a comment
+ *
+ * @apiParam {string} AnswerID Id of a answer
+ *
+ *
+ * @apiExample Example usage:
+ * curl -i http://localhost:3001/ver1/post-like/comment/:CommentID
+ *
+ * @apiSuccess {Boolean} success state of the request
+ * @apiSuccess {String} message Something from the server
+ * @apiSuccess {Object[]} likes Information of all likes of a comment
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ * {
+ *    "success": true,
+ *     "message": "Flags on comment 6387764f05d1aa0e48681629",
+ *     "likes": [
+ *         {
+ *             "_id": "6388e0262852d2ab527db466",
+ *             "CommentID": "6387764f05d1aa0e48681629",
+ *             "PostLikeDate": "2022-12-01T17:11:02.638Z",
  *             "UserID": "6368bcb887e84601d546dcc4"
  *         }
  *     ]
  * }
  *
- * @apiError  400_Bad_Request Authenticate failed
- *
- * @apiErrorExample Error-Response:
- *     HTTP/1.1 400 Bad Request
- *     {
- *          "success": false,
- *          "code": 9,
- *          "message": "Invalid Token",
- *          "description": "You need to log in to perform the request"
- *      }
  */
-router.post("/ver1/authenticate/post-like", PostLikeControl.AddPostLike)
-router.get("/ver1/post-like", PostLikeControl.GetAllPostLike)
-router.get("/ver1/post-like/user/:UserID", PostLikeControl.GetPostLikeByUserID)
-router.get("/ver1/post-like/question/:QuestionID", PostLikeControl.GetPostLikeByQuestionID)
-router.get("/ver1/post-like/answer/:AnswerID", PostLikeControl.GetPostLikeByAnswerID)
 router.get("/ver1/post-like/comment/:CommentID", PostLikeControl.GetPostLikeByCommentID)
 router.delete("/ver1/authenticate/post-like/:PostLikeId", PostLikeControl.DeletePostLike)
 
