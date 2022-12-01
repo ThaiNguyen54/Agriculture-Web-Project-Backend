@@ -8,15 +8,32 @@ export async function AddPostLike(req, res) {
         let accessUerId = req.query.accessUserId || '';
         const NewLike = new PostLike(req.body);
         NewLike.UserID = accessUerId;
-        const LikeInsertData = await PostLike.insertMany(NewLike);
-        if(!LikeInsertData) {
-            throw new Error("Something wrong with this action");
-        }
-        else {
+        const SearchLike = await PostLike.findOne(
+            {
+                UserID: req.body.UserID,
+                QuestionID: req.body.QuestionID
+            }
+        )
+        if(!SearchLike){
+            const LikeInsertData = await PostLike.insertMany(NewLike);
+            if(!LikeInsertData) {
+                throw new Error("Something wrong with this action");
+            }
+            else {
+                return res.json({
+                    success: true,
+                    message: "Like successfully",
+                    like: LikeInsertData,
+                })
+            }
+        }else{
+            const UnLike = await PostLike.remove({
+                UserID: req.body.UserID,
+                QuestionID: req.body.QuestionID
+            })
             return res.json({
-                success: true,
-                message: "Like successfully",
-                like: LikeInsertData,
+                success: false,
+                message: "Already Like",
             })
         }
     }

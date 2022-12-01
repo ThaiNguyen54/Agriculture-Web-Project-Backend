@@ -73,10 +73,8 @@ export function GetAllUser(req, res){
 }
 
 export function GetUserById(req, res){
-    let accessUserId = req.query.accessUserId || '';
     let accessUserRight = req.query.accessUserRight || '';
     const id = req.params.UserID;
-
     if(!Validator.isMongoId(id)) {
         return res.status(400).json({
             "success": false,
@@ -86,20 +84,15 @@ export function GetUserById(req, res){
         })
     }
 
-    if (accessUserId != id) {
-        return res.status(403).json({
-            "success": false,
-            "code": 9,
-            "message": "Not available",
-            "description": "This content is not available"
-        })
-    }
     users.findById(id)
         .then((user) => {
             return res.status(200).json({
                 success: true,
                 message: `Found one user with id: ${id}`,
-                users: user,
+                users: {
+                    UserID: user.UserID,
+                    UserName: user.UserName
+                },
             });
         })
         .catch((err) => {
@@ -125,7 +118,8 @@ export function Login (req, res) {
                 return Rest.SendError(res, 1, 'Creating Token Failed', 400, error);
             }
             else{
-                return Rest.SendSuccessToken(res, token, user);
+                const success = {success : true}
+                return Rest.SendSuccessToken(res, token, user, success);
             }
         });
     });
