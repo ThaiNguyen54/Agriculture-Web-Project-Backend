@@ -2,11 +2,16 @@ import questions from "../models/question.js";
 import MongodbConfig from "../configs/MongodbConfig.js";
 import * as QuestionManagement from '../Management/QuestionManagement.js'
 import * as Rest from '../utils/Rest.js';
+import cloudinaries from '../utils/Cloudinary.js';
 
 export async function AddQuestion(req, res) {
     try {
         let accessUerId = req.query.accessUserId || '';
+        const result = await cloudinaries.uploader.upload(req.body.Image, {})
         const NewQuestion = new questions(req.body);
+        if(result){
+            NewQuestion.Image = result.secure_url;
+        }
         NewQuestion.UserID = accessUerId;
         const QuestionInsertData = await questions.insertMany(NewQuestion);
         if(!QuestionInsertData) {

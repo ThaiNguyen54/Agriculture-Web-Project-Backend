@@ -15,6 +15,9 @@ const QuestionDBSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    Image: {
+        type: String
+    },
     QContent: {
         type: String,
         required: true,

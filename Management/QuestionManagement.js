@@ -2,7 +2,6 @@ import * as Utils from '../utils/utilFuncs.js'
 import Question from '../models/question.js'
 import Validator from 'validator';
 
-
 export function Delete(QuestionID, accessUserRight, accessUserId, callback) {
     try{
         if(!Utils.VariableTypeChecker(QuestionID, 'string') || !Validator.isMongoId(QuestionID)) {
