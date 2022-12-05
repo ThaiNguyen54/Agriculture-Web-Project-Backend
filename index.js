@@ -37,12 +37,12 @@ mongoose.connect(mongoconfig.mongodb.THAI_uri);
 //---------------------------> Set up PORT <-------------------------//
 let port = process.env.PORT;
 if(port == null || port == ""){
-    port = 4000;
+    port = 3001;
 }
 
 
 
 //---------------------------> ListenPort <--------------------------//
 app.listen(port, () => {
-    console.log("Server is running on port 3001");
+    console.log(`Server is running on port ${port}`);
 })
