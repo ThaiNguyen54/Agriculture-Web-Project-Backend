@@ -2615,7 +2615,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n \"success\": true,\n \"message\": \"List of all users\",\n \"data\": [\n     {\n         \"_id\": \"633e90e356881a06993559f3\",\n         \"UserName\": \"Thanh Le\",\n         \"LoginName\": \"ThanhVe\",\n         \"Password\": \"$2b$10$hkrkTOixirx/4g/bEbgWru.gVfjOYdtq3yirQxDdxAGFEenKqriPC\",\n         \"Email\": \"ThanhVe@gmail.com\"\n     },\n  ]\n }",
+          "content": "HTTP/1.1 200 OK\n{\n \"success\": true,\n \"message\": \"List of all users\",\n \"Users\": [\n     {\n         \"_id\": \"633e90e356881a06993559f3\",\n         \"UserName\": \"Thanh Le\",\n         \"Email\": \"ThanhVe@gmail.com\",\n         \"RegisterDate\": \"2022-11-17T15:31:20.692Z\"\n         \"Avatar\": \"https://demoda.vn/wp-con…-truc-bua-trung-quoc.jpg\"\n         \"BackgroundImg\": \"https://assets.entrepreneur.com/content/3x2/2000/20180703190744-rollsafe-meme.jpeg?crop=16:9\n     },\n  ]\n }",
           "type": "json"
         }
       ]
@@ -2717,7 +2717,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n {\n     \"success\": true,\n     \"message\": \"Found one user with id: 633eb8f0069528b78658b656\",\n     \"data\": {\n                 \"_id\": \"633eb8f0069528b78658b656\",\n                 \"UserName\": \"Trong\",\n                 \"LoginName\": \"Trong\",\n                 \"Password\": \"$2a$10$BqqeoYnYcZLGXrK89JHju.j9Ymy1mi3.GrrLpIM1CN6xIUORaMNuS\",\n                 \"Email\": \"trong@gmail.com\"\n     }\n }",
+          "content": "HTTP/1.1 200 OK\n {\n     \"success\": true,\n     \"message\": \"Found one user with id: 633e90e356881a06993559f3\",\n     \"Users\": {\n         \"_id\": \"633e90e356881a06993559f3\",\n         \"UserName\": \"Thanh Le\",\n         \"Email\": \"ThanhVe@gmail.com\",\n         \"RegisterDate\": \"2022-11-17T15:31:20.692Z\"\n         \"Avatar\": \"https://demoda.vn/wp-con…-truc-bua-trung-quoc.jpg\"\n         \"BackgroundImg\": \"https://assets.entrepreneur.com/content/3x2/2000/20180703190744-rollsafe-meme.jpeg?crop=16:9\n     }\n }",
           "type": "json"
         }
       ]

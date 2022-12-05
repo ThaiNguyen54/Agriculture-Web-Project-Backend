@@ -113,6 +113,7 @@ export function GetUserById(req, res){
         })
     }
     users.findById(id)
+        .select('_id UserName Avatar BackgroundImg Email RegisterDate')
         .then((user) => {
             return res.status(200).json({
                 success: true,

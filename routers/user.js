@@ -116,13 +116,14 @@ router.post("/ver1/user", UserControl.AddUserAccount)
  *     {
  *      "success": true,
  *      "message": "List of all users",
- *      "data": [
+ *      "Users": [
  *          {
  *              "_id": "633e90e356881a06993559f3",
  *              "UserName": "Thanh Le",
- *              "LoginName": "ThanhVe",
- *              "Password": "$2b$10$hkrkTOixirx/4g/bEbgWru.gVfjOYdtq3yirQxDdxAGFEenKqriPC",
- *              "Email": "ThanhVe@gmail.com"
+ *              "Email": "ThanhVe@gmail.com",
+ *              "RegisterDate": "2022-11-17T15:31:20.692Z"
+ *              "Avatar": "https://demoda.vn/wp-con…-truc-bua-trung-quoc.jpg"
+ *              "BackgroundImg": "https://assets.entrepreneur.com/content/3x2/2000/20180703190744-rollsafe-meme.jpeg?crop=16:9
  *          },
  *       ]
  *      }
@@ -163,13 +164,14 @@ router.get("/ver1/users", UserControl.GetAllUser)
  *     HTTP/1.1 200 OK
  *      {
  *          "success": true,
- *          "message": "Found one user with id: 633eb8f0069528b78658b656",
- *          "data": {
- *                      "_id": "633eb8f0069528b78658b656",
- *                      "UserName": "Trong",
- *                      "LoginName": "Trong",
- *                      "Password": "$2a$10$BqqeoYnYcZLGXrK89JHju.j9Ymy1mi3.GrrLpIM1CN6xIUORaMNuS",
- *                      "Email": "trong@gmail.com"
+ *          "message": "Found one user with id: 633e90e356881a06993559f3",
+ *          "Users": {
+ *              "_id": "633e90e356881a06993559f3",
+ *              "UserName": "Thanh Le",
+ *              "Email": "ThanhVe@gmail.com",
+ *              "RegisterDate": "2022-11-17T15:31:20.692Z"
+ *              "Avatar": "https://demoda.vn/wp-con…-truc-bua-trung-quoc.jpg"
+ *              "BackgroundImg": "https://assets.entrepreneur.com/content/3x2/2000/20180703190744-rollsafe-meme.jpeg?crop=16:9
  *          }
  *      }
  *
