@@ -54,9 +54,11 @@ export function GetAllUser(req, res){
             res.status(200).json(allUsers.map((item) => {
                 return {
                     userId: item._id,
-                    userName: item.UserName,
-                    avatarImg: item.Avatar,
-                    backgroundImg: item.BackgroundImg,
+                    UserName: item.UserName,
+                    Avatar: item.Avatar,
+                    BackgroundImg: item.BackgroundImg,
+                    Email: item.Email,
+                    CreatedDate: item.RegisterDate
                 }
             }))
         })
