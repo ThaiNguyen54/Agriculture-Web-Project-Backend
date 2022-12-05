@@ -15,6 +15,9 @@ const router = express.Router();
  *
  * @apiExample Example usage:
  * curl -i http://localhost:3001/login
+ * 
+ * @apiParam {string} LoginName a string with length <= 64
+ * @apiParam {String} Password a string with 4 < length < 64
  *
  * @apiSuccess {Boolean} success state of the request
  * @apiSuccess {String} token User's token
@@ -41,6 +44,8 @@ const router = express.Router();
  *          "mess": "unavailable",
  *          "description": "Cannot find your account"
  *      }
+ * 
+ * @apiSampleRequest http://localhost:3001/login
  */
 router.post('/login', UserControl.Login)
 
@@ -91,6 +96,9 @@ router.post('/login', UserControl.Login)
  *          "message": "Email conflict",
  *          "description": "There is another account using this Email."
  *      }
+ * 
+ * 
+ * @apiSampleRequest http://localhost:3001/ver1/user
  */
 router.post("/ver1/user", UserControl.AddUserAccount)
 
@@ -99,8 +107,7 @@ router.post("/ver1/user", UserControl.AddUserAccount)
  * @apiVersion 1.0.0
  * @apiName GetAllUser
  * @apiGroup User
- * @apiPermission Administrator
- * @apiHeader {String} access_token json web token to access to data
+ * @apiPermission Every type of users
  *
  * @apiDescription Get all users
  *
@@ -138,6 +145,9 @@ router.post("/ver1/user", UserControl.AddUserAccount)
  *          "message": "Invalid Token"
  *          "description": "You need to log in to perform the request"
  *      }
+ * 
+ * 
+ * @apiSampleRequest http://localhost:3001/ver1/users
  */
 router.get("/ver1/users", UserControl.GetAllUser)
 

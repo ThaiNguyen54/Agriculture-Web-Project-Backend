@@ -2448,6 +2448,11 @@ define({ "api": [
         }
       ]
     },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3001/ver1/user"
+      }
+    ],
     "filename": "routers/user.js",
     "groupTitle": "User"
   },
@@ -2562,22 +2567,9 @@ define({ "api": [
     "group": "User",
     "permission": [
       {
-        "name": "Administrator"
+        "name": "Every type of users"
       }
     ],
-    "header": {
-      "fields": {
-        "Header": [
-          {
-            "group": "Header",
-            "type": "String",
-            "optional": false,
-            "field": "access_token",
-            "description": "<p>json web token to access to data</p>"
-          }
-        ]
-      }
-    },
     "description": "<p>Get all users</p>",
     "examples": [
       {
@@ -2639,6 +2631,11 @@ define({ "api": [
         }
       ]
     },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3001/ver1/users"
+      }
+    ],
     "filename": "routers/user.js",
     "groupTitle": "User"
   },
@@ -2764,6 +2761,26 @@ define({ "api": [
         "type": "json"
       }
     ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "LoginName",
+            "description": "<p>a string with length &lt;= 64</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "Password",
+            "description": "<p>a string with 4 &lt; length &lt; 64</p>"
+          }
+        ]
+      }
+    },
     "success": {
       "fields": {
         "Success 200": [
@@ -2831,6 +2848,11 @@ define({ "api": [
         }
       ]
     },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3001/login"
+      }
+    ],
     "filename": "routers/user.js",
     "groupTitle": "User"
   },
