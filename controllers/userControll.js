@@ -60,22 +60,22 @@ export function GetAllUser(req, res){
     // }
 
     users.find()
-        .select('_id UserName Avatar BackgroundImg')
+        .select('_id UserName Avatar BackgroundImg Email RegisterDate')
         .then(allUsers => {
-            // return res.status(200).json({
-            //     success: true,
-            //     message: 'List of all users',
-            //     Users: allUsers,
-            // });
+            return res.status(200).json({
+                success: true,
+                message: 'List of all users',
+                Users: allUsers,
+            });
 
-            res.status(200).json(allUsers.map((item) => {
-                return {
-                    userId: item._id,
-                    userName: item.UserName,
-                    avatarImg: item.Avatar,
-                    backgroundImg: item.BackgroundImg,
-                }
-            }))
+            // res.status(200).json(allUsers.map((item) => {
+            //     return {
+            //         userId: item._id,
+            //         userName: item.UserName,
+            //         avatarImg: item.Avatar,
+            //         backgroundImg: item.BackgroundImg,
+            //     }
+            // }))
         })
         .catch((err) => {
             return(
