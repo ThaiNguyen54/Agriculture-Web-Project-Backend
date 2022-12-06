@@ -104,14 +104,14 @@ export function GetUserById(req, res){
         })
     }
 
-    if (accessUserId != id) {
-        return res.status(403).json({
-            "success": false,
-            "code": 9,
-            "message": "Not available",
-            "description": "This content is not available"
-        })
-    }
+    // if (accessUserId != id) {
+    //     return res.status(403).json({
+    //         "success": false,
+    //         "code": 9,
+    //         "message": "Not available",
+    //         "description": "This content is not available"
+    //     })
+    // }
     users.findById(id)
         .select('_id UserName Avatar BackgroundImg Email RegisterDate')
         .then((user) => {

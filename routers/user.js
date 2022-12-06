@@ -157,7 +157,6 @@ router.get("/ver1/users", UserControl.GetAllUser)
  * @apiName GetUserById
  * @apiGroup User
  * @apiPermission Every type of user
- * @apiHeader {String} access_token json web token to access to data
  *
  * @apiDescription Get one user
  *
@@ -185,16 +184,9 @@ router.get("/ver1/users", UserControl.GetAllUser)
  *          }
  *      }
  *
- * @apiError 403_Forbidden Forbidden content
  *
- * @apiErrorExample Error-Response:
- *     HTTP/1.1 403_Forbidden
- *      {
- *          "success": false,
- *          "code": 9,
- *          "message": "Not available",
- *          "description": "This content is not available"
- *      }
+ * 
+ * @apiSampleRequest http://localhost:3001/ver1/users/633eb8f0069528b78658b656
  */
 router.get("/ver1/users/:UserID", UserControl.GetUserById)
 
@@ -238,6 +230,8 @@ router.get("/ver1/users/:UserID", UserControl.GetUserById)
  *          "message": "invalid_id",
  *          "description": "The inputted user id is in wrong format"
  *      }
+ * 
+ * @apiSampleRequest http://localhost:3001/ver1/authenticate/user/633eb8f0069528b78658b656
  */
 router.delete('/ver1/authenticate/user/:UserID', UserControl.DeleteUser)
 
@@ -281,6 +275,8 @@ router.delete('/ver1/authenticate/user/:UserID', UserControl.DeleteUser)
  *          "message": "invalid_user_right",
  *          "description": "you don't have permission to perform this request"
  *      }
+ * 
+ * @apiSampleRequest http://localhost:3001/ver1/authenticate/user/633eb8f0069528b78658b656
  */
 router.put('/ver1/authenticate/user/:UserID', UserControl.UpdateUser)
 

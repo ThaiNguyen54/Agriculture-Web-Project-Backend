@@ -11,6 +11,7 @@ const router = express.Router();
  * @apiName AddComment
  * @apiGroup Comment
  * @apiPermission Every type of user
+ * @apiHeader {String} access_token json web token to access to data
  *
  * @apiDescription User use this api to post a new comment
  *
@@ -48,6 +49,8 @@ const router = express.Router();
  *          "message": "Invalid Token",
  *          "description": "You need to log in to perform the request"
  *      }
+ * 
+ * @apiSampleRequest http://localhost:3001/ver1/authenticate/comment
  */
 router.post("/ver1/authenticate/comment", CommentControl.AddComment)
 
@@ -83,6 +86,7 @@ router.post("/ver1/authenticate/comment", CommentControl.AddComment)
  *         }
  *      ]
  * }
+ * @apiSampleRequest http://localhost:3001/ver1/comments
  *
  */
 router.get("/ver1/comments", CommentControl.GetAllComment)
@@ -118,6 +122,7 @@ router.get("/ver1/comments", CommentControl.GetAllComment)
  *         }
  *      ]
  * }
+ * @apiSampleRequest http://localhost:3001/ver1/comments/:UserID
  *
  */
 router.get("/ver1/comments/:UserID", CommentControl.GetCommentByUserID)
@@ -128,13 +133,14 @@ router.get("/ver1/comments/:UserID", CommentControl.GetCommentByUserID)
  * @apiName DeleteComment
  * @apiGroup Comment
  * @apiPermission Owner of the comment
+ * @apiHeader {String} access_token json web token to access to data
  *
  * @apiDescription User use this api to delete a comment
  *
  * @apiParam {string} CommentId Id of the comment that need to be deleted
  *
  * @apiExample Example usage:
- * curl -i http://localhost:3001/ver1/authenticate/answers/:AnswerId
+ * curl -i http://localhost:3001/ver1/authenticate/comments/:CommentId
  *
  * @apiSuccess {Boolean} success state of the request
  * @apiSuccess {String} message Something from the server
@@ -159,6 +165,7 @@ router.get("/ver1/comments/:UserID", CommentControl.GetCommentByUserID)
  *     "message": "Permission error",
  *     "description": "You have no permission to perform this request"
  * }
+ * @apiSampleRequest http://localhost:3001/ver1/authenticate/comments/:CommentId
  */
 router.delete("/ver1/authenticate/comments/:CommentId", CommentControl.DeleteComment)
 
@@ -169,6 +176,7 @@ router.delete("/ver1/authenticate/comments/:CommentId", CommentControl.DeleteCom
  * @apiName UpdateComment
  * @apiGroup Comment
  * @apiPermission Owner of the comment
+ * @apiHeader {String} access_token json web token to access to data
  *
  * @apiDescription User use this api to update a comment
  *
@@ -200,6 +208,7 @@ router.delete("/ver1/authenticate/comments/:CommentId", CommentControl.DeleteCom
  *     "message": "Permission error",
  *     "description": "You have no permission to perform this request"
  * }
+ * @apiSampleRequest http://localhost:3001/ver1/authenticate/comments/:CommentId
  */
 router.put("/ver1/authenticate/comments/:CommentId", CommentControl.UpdateComment)
 

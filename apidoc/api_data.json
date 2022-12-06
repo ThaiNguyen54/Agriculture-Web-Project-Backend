@@ -11,6 +11,19 @@
         "name": "Every type of user"
       }
     ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "access_token",
+            "description": "<p>json web token to access to data</p>"
+          }
+        ]
+      }
+    },
     "description": "<p>User use this api to post a new answer</p>",
     "parameter": {
       "fields": {
@@ -92,6 +105,11 @@
         }
       ]
     },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3001/ver1/authenticate/answer"
+      }
+    ],
     "filename": "routers/answer.js",
     "groupTitle": "Answer"
   },
@@ -117,6 +135,19 @@
             "optional": false,
             "field": "AnswerId",
             "description": "<p>Id of the answer the need to be deleted</p>"
+          }
+        ]
+      }
+    },
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "access_token",
+            "description": "<p>json web token to access to data</p>"
           }
         ]
       }
@@ -181,6 +212,11 @@
         }
       ]
     },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3001/ver1/authenticate/answers/:AnswerId"
+      }
+    ],
     "filename": "routers/answer.js",
     "groupTitle": "Answer"
   },
@@ -238,6 +274,11 @@
         }
       ]
     },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3001/ver1/answers"
+      }
+    ],
     "filename": "routers/answer.js",
     "groupTitle": "Answer"
   },
@@ -295,6 +336,11 @@
         }
       ]
     },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3001/ver1/answers/:UserID"
+      }
+    ],
     "filename": "routers/answer.js",
     "groupTitle": "Answer"
   },
@@ -310,6 +356,19 @@
         "name": "Owner of the answer"
       }
     ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "access_token",
+            "description": "<p>json web token to access to data</p>"
+          }
+        ]
+      }
+    },
     "description": "<p>User use this api to update an answer</p>",
     "parameter": {
       "fields": {
@@ -384,6 +443,11 @@
         }
       ]
     },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3001/ver1/authenticate/answers/:AnswerId"
+      }
+    ],
     "filename": "routers/answer.js",
     "groupTitle": "Answer"
   },
@@ -399,6 +463,19 @@
         "name": "Every type of user"
       }
     ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "access_token",
+            "description": "<p>json web token to access to data</p>"
+          }
+        ]
+      }
+    },
     "description": "<p>User use this api to post a new comment</p>",
     "parameter": {
       "fields": {
@@ -480,6 +557,11 @@
         }
       ]
     },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3001/ver1/authenticate/comment"
+      }
+    ],
     "filename": "routers/comment.js",
     "groupTitle": "Comment"
   },
@@ -495,6 +577,19 @@
         "name": "Owner of the comment"
       }
     ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "access_token",
+            "description": "<p>json web token to access to data</p>"
+          }
+        ]
+      }
+    },
     "description": "<p>User use this api to delete a comment</p>",
     "parameter": {
       "fields": {
@@ -512,7 +607,7 @@
     "examples": [
       {
         "title": "Example usage:",
-        "content": "curl -i http://localhost:3001/ver1/authenticate/answers/:AnswerId",
+        "content": "curl -i http://localhost:3001/ver1/authenticate/comments/:CommentId",
         "type": "json"
       }
     ],
@@ -569,6 +664,11 @@
         }
       ]
     },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3001/ver1/authenticate/comments/:CommentId"
+      }
+    ],
     "filename": "routers/comment.js",
     "groupTitle": "Comment"
   },
@@ -626,6 +726,11 @@
         }
       ]
     },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3001/ver1/comments"
+      }
+    ],
     "filename": "routers/comment.js",
     "groupTitle": "Comment"
   },
@@ -683,6 +788,11 @@
         }
       ]
     },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3001/ver1/comments/:UserID"
+      }
+    ],
     "filename": "routers/comment.js",
     "groupTitle": "Comment"
   },
@@ -698,6 +808,19 @@
         "name": "Owner of the comment"
       }
     ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "access_token",
+            "description": "<p>json web token to access to data</p>"
+          }
+        ]
+      }
+    },
     "description": "<p>User use this api to update a comment</p>",
     "parameter": {
       "fields": {
@@ -772,6 +895,11 @@
         }
       ]
     },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3001/ver1/authenticate/comments/:CommentId"
+      }
+    ],
     "filename": "routers/comment.js",
     "groupTitle": "Comment"
   },
@@ -788,6 +916,19 @@
       }
     ],
     "description": "<p>User use this api to flag a comment, a question or an answer</p>",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "access_token",
+            "description": "<p>json web token to access to data</p>"
+          }
+        ]
+      }
+    },
     "parameter": {
       "fields": {
         "Parameter": [
@@ -882,11 +1023,16 @@
         }
       ]
     },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3001/ver1/authenticate/flag"
+      }
+    ],
     "filename": "routers/flag.js",
     "groupTitle": "Flag"
   },
   {
-    "type": "POST",
+    "type": "DELETE",
     "url": "/ver1/authenticate/flags/:FlagID",
     "title": "Delete a flag of a comment, a question or an answer",
     "version": "1.0.0",
@@ -898,6 +1044,19 @@
       }
     ],
     "description": "<p>User use this api to un-flag a comment, a question or an answer</p>",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "access_token",
+            "description": "<p>json web token to access to data</p>"
+          }
+        ]
+      }
+    },
     "parameter": {
       "fields": {
         "Parameter": [
@@ -971,6 +1130,11 @@
         }
       ]
     },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3001/ver1/authenticate/flags/:FlagID"
+      }
+    ],
     "filename": "routers/flag.js",
     "groupTitle": "Flag"
   },
@@ -1028,6 +1192,11 @@
         }
       ]
     },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3001/ver1/flags"
+      }
+    ],
     "filename": "routers/flag.js",
     "groupTitle": "Flag"
   },
@@ -1098,6 +1267,11 @@
         }
       ]
     },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3001/ver1/flags/answer/:AnswerID"
+      }
+    ],
     "filename": "routers/flag.js",
     "groupTitle": "Flag"
   },
@@ -1168,6 +1342,11 @@
         }
       ]
     },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3001/ver1/flags/comment/:CommentID"
+      }
+    ],
     "filename": "routers/flag.js",
     "groupTitle": "Flag"
   },
@@ -1238,6 +1417,11 @@
         }
       ]
     },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3001/ver1/flags/question/:QuestionID"
+      }
+    ],
     "filename": "routers/flag.js",
     "groupTitle": "Flag"
   },
@@ -1308,8 +1492,134 @@
         }
       ]
     },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3001/ver1/flags/user/:UserID"
+      }
+    ],
     "filename": "routers/flag.js",
     "groupTitle": "Flag"
+  },
+  {
+    "type": "POST",
+    "url": "/ver1/authenticate/post-like",
+    "title": "Like a post (question, comment or answer). If already liked, this api will delete the like",
+    "version": "1.0.0",
+    "name": "AddPostLike",
+    "group": "Post_Like",
+    "permission": [
+      {
+        "name": "Every type of user"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "access_token",
+            "description": "<p>json web token to access to data</p>"
+          }
+        ]
+      }
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "CommentID",
+            "description": "<p>Id of the comment that is being liked</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "AnswerID",
+            "description": "<p>Id of the answer that is being liked</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "QuestionID",
+            "description": "<p>Id of the question that is being liked</p>"
+          }
+        ]
+      }
+    },
+    "description": "<p>User use this api to like or unlike a post (question, comment or answer)</p>",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "curl -i http://localhost:3001/ver1/authenticate/post-like",
+        "type": "json"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "success",
+            "description": "<p>state of the request</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>message from the server</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "data",
+            "description": "<p>the id of the deleted question</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"success\": true,\n  \"message\": \"Like successfully\",\n  \"like\": [\n      {\n          \"CommentID\": \"63880cdfa00121e3f0f8a891\",\n          \"_id\": \"638f55012891d4b3ed391bc7\",\n          \"PostLikeDate\": \"2022-12-06T14:43:13.915Z\",\n          \"UserID\": \"63424a31bfeed9be13fd9e65\"\n      }\n  ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "400_Bad_Request",
+            "description": "<p>User need to login</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 400 Bad_Request\n{\n     \"success\": false,\n     \"code\": 9,\n     \"message\": \"Invalid Token\",\n     \"description\": \"You need to log in to perform the request\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3001/ver1/authenticate/post-like"
+      }
+    ],
+    "filename": "routers/postLike.js",
+    "groupTitle": "Post_Like"
   },
   {
     "type": "GET",
@@ -1360,19 +1670,23 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "    HTTP/1.1 200 OK\n{\n   \"success\": true,\n    \"message\": \"List of all likes\",\n    \"likes\": [\n        {\n            \"_id\": \"63887dd9061cd89d6376d706\",\n            \"UserID\": \"637653c86faa44c3c5dd964a\",\n            \"QuestionID\": \"63785e884683c153e4e3453b\",\n            \"PostLikeDate\": \"2022-12-01T10:11:37.502Z\"\n         }\n\n     ]\n}",
+          "content": "HTTP/1.1 200 OK\n{\n   \"success\": true,\n    \"message\": \"List of all likes\",\n    \"likes\": [\n        {\n            \"_id\": \"63887dd9061cd89d6376d706\",\n            \"UserID\": \"637653c86faa44c3c5dd964a\",\n            \"QuestionID\": \"63785e884683c153e4e3453b\",\n            \"PostLikeDate\": \"2022-12-01T10:11:37.502Z\"\n         }\n\n     ]\n}",
           "type": "json"
         }
       ]
     },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3001/ver1/post-like"
+      }
+    ],
     "filename": "routers/postLike.js",
     "groupTitle": "Post_Like"
   },
   {
     "type": "GET",
     "url": "/ver1/post-like/answer/:AnswerID",
-    "title": "View all post likes of a question",
-    "version": "1.0.0",
+    "title": "View all post likes of an answer",
     "name": "GetPostLikeByAnswerID",
     "group": "Post_Like",
     "permission": [
@@ -1435,6 +1749,12 @@
         }
       ]
     },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3001/ver1/post-like/answer/:AnswerID"
+      }
+    ],
+    "version": "0.0.0",
     "filename": "routers/postLike.js",
     "groupTitle": "Post_Like"
   },
@@ -1458,8 +1778,8 @@
             "group": "Parameter",
             "type": "string",
             "optional": false,
-            "field": "AnswerID",
-            "description": "<p>Id of a answer</p>"
+            "field": "CommentID",
+            "description": "<p>Id of a comment</p>"
           }
         ]
       }
@@ -1505,6 +1825,11 @@
         }
       ]
     },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3001/ver1/post-like/comment/:CommentID"
+      }
+    ],
     "filename": "routers/postLike.js",
     "groupTitle": "Post_Like"
   },
@@ -1575,6 +1900,11 @@
         }
       ]
     },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3001/ver1/post-like/question/:QuestionID"
+      }
+    ],
     "filename": "routers/postLike.js",
     "groupTitle": "Post_Like"
   },
@@ -1645,6 +1975,11 @@
         }
       ]
     },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3001/ver1/post-like/user/:UserID"
+      }
+    ],
     "filename": "routers/postLike.js",
     "groupTitle": "Post_Like"
   },
@@ -1674,6 +2009,33 @@
       }
     },
     "description": "<p>User use this api to post a question to the system</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "Title",
+            "description": "<p>Title of the question</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "QContent",
+            "description": "<p>Content of the question</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "TagName",
+            "description": "<p>Tag name of the question</p>"
+          }
+        ]
+      }
+    },
     "examples": [
       {
         "title": "Example usage:",
@@ -1734,6 +2096,11 @@
         }
       ]
     },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3001/ver1/authenticate/question"
+      }
+    ],
     "filename": "routers/question.js",
     "groupTitle": "Question"
   },
@@ -1823,6 +2190,11 @@
         }
       ]
     },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3001/ver1/authenticate/questions/:QuestionId"
+      }
+    ],
     "filename": "routers/question.js",
     "groupTitle": "Question"
   },
@@ -1880,6 +2252,86 @@
         }
       ]
     },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3001/ver1/questions"
+      }
+    ],
+    "filename": "routers/question.js",
+    "groupTitle": "Question"
+  },
+  {
+    "type": "GET",
+    "url": "/ver1/questionsbytag",
+    "title": "Search questions by tag",
+    "version": "1.0.0",
+    "name": "GetQuestionByTag",
+    "group": "Question",
+    "permission": [
+      {
+        "name": "Every type of user"
+      }
+    ],
+    "description": "<p>User use this api to search question by tag</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "TagName",
+            "description": "<p>Name of a tag</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "curl -i http://localhost:3001/ver1/questionsbytag",
+        "type": "json"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "success",
+            "description": "<p>state of the request</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>message from the server</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "questions",
+            "description": "<p>questions related to input tag</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n    \"success\": true,\n    \"message\": \"Found Question(s) with tag Trồng trọt\",\n    \"questions\": [\n       {\n         \"_id\": \"63881628a00121e3f0f8a961\",\n         \"Title\": \"Trồng cây\",\n          \"TagName\": \"Trồng trọt\",\n          \"QContent\": \"cây thơm ngon bổ dưỡng, hít vào là phê, lê thê tới nóc\",\n          \"PostedDate\": \"2022-12-01T02:49:12.501Z\",\n          \"UserID\": \"63424a31bfeed9be13fd9e65\"\n        }\n     ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3001/ver1/questionsbytag"
+      }
+    ],
     "filename": "routers/question.js",
     "groupTitle": "Question"
   },
@@ -1937,6 +2389,11 @@
         }
       ]
     },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3001/ver1/questions/:UserID"
+      }
+    ],
     "filename": "routers/question.js",
     "groupTitle": "Question"
   },
@@ -1966,6 +2423,19 @@
       }
     },
     "description": "<p>User use this api to update a question</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "QuestionId",
+            "description": "<p>Id of the question that need to be updated</p>"
+          }
+        ]
+      }
+    },
     "examples": [
       {
         "title": "Example usage:",
@@ -2026,6 +2496,11 @@
         }
       ]
     },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3001/ver1/authenticate/questions/:QuestionId"
+      }
+    ],
     "filename": "routers/question.js",
     "groupTitle": "Question"
   },
@@ -2042,6 +2517,19 @@
       }
     ],
     "description": "<p>Administrator use this api to add a new tag to the system</p>",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "access_token",
+            "description": "<p>json web token to access to data</p>"
+          }
+        ]
+      }
+    },
     "parameter": {
       "fields": {
         "Parameter": [
@@ -2115,11 +2603,16 @@
         }
       ]
     },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3001/ver1/authenticate/tag"
+      }
+    ],
     "filename": "routers/tag.js",
     "groupTitle": "Tag"
   },
   {
-    "type": "POST",
+    "type": "DELETE",
     "url": "/ver1/authenticate/tags/:TagID",
     "title": "Delete a tag",
     "version": "1.0.0",
@@ -2131,6 +2624,19 @@
       }
     ],
     "description": "<p>Administrator use this api to delete a tag</p>",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "access_token",
+            "description": "<p>json web token to access to data</p>"
+          }
+        ]
+      }
+    },
     "parameter": {
       "fields": {
         "Parameter": [
@@ -2204,6 +2710,11 @@
         }
       ]
     },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3001/ver1/authenticate/tags/:TagID"
+      }
+    ],
     "filename": "routers/tag.js",
     "groupTitle": "Tag"
   },
@@ -2261,76 +2772,11 @@
         }
       ]
     },
-    "filename": "routers/tag.js",
-    "groupTitle": "Tag"
-  },
-  {
-    "type": "GET",
-    "url": "/ver1/tags/question/:QuestionID",
-    "title": "Get all questions which have a specific tag",
-    "version": "1.0.0",
-    "name": "GetTagByQuestionID",
-    "group": "Tag",
-    "permission": [
+    "sampleRequest": [
       {
-        "name": "Every type of user"
+        "url": "http://localhost:3001/ver1/tags"
       }
     ],
-    "description": "<p>User use this api to view all questions which have a specific tag</p>",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": false,
-            "field": "QuestionID",
-            "description": "<p>Id of the question</p>"
-          }
-        ]
-      }
-    },
-    "examples": [
-      {
-        "title": "Example usage:",
-        "content": "curl -i http://localhost:3001/ver1/tags/question/:QuestionID",
-        "type": "json"
-      }
-    ],
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "Boolean",
-            "optional": false,
-            "field": "success",
-            "description": "<p>state of the request</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "message",
-            "description": "<p>Something from the server</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Object[]",
-            "optional": false,
-            "field": "tags",
-            "description": "<p>Information of the tags in the system</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "    HTTP/1.1 200 OK\n{\n    \"success\": true,\n    \"message\": \"Tags on question 6363c1ec3e42dd9f6b868f17\",\n    \"tags\": [\n        {\n            \"_id\": \"636f1799d6af390bc3f70217\",\n            \"UserID\": \"6369c88a8beabd9ff21e16b8\",\n            \"TagName\": \"Python\",\n            \"CreatedDate\": \"2022-11-12T03:48:41.430Z\",\n            \"QuestionID\": \"6363c1ec3e42dd9f6b868f17\"\n        }\n    ]\n}",
-          "type": "json"
-        }
-      ]
-    },
     "filename": "routers/tag.js",
     "groupTitle": "Tag"
   },
@@ -2555,6 +3001,11 @@
         }
       ]
     },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3001/ver1/authenticate/user/633eb8f0069528b78658b656"
+      }
+    ],
     "filename": "routers/user.js",
     "groupTitle": "User"
   },
@@ -2651,19 +3102,6 @@
         "name": "Every type of user"
       }
     ],
-    "header": {
-      "fields": {
-        "Header": [
-          {
-            "group": "Header",
-            "type": "String",
-            "optional": false,
-            "field": "access_token",
-            "description": "<p>json web token to access to data</p>"
-          }
-        ]
-      }
-    },
     "description": "<p>Get one user</p>",
     "parameter": {
       "fields": {
@@ -2719,25 +3157,11 @@
         }
       ]
     },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "403_Forbidden",
-            "description": "<p>Forbidden content</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Error-Response:",
-          "content": "HTTP/1.1 403_Forbidden\n {\n     \"success\": false,\n     \"code\": 9,\n     \"message\": \"Not available\",\n     \"description\": \"This content is not available\"\n }",
-          "type": "json"
-        }
-      ]
-    },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3001/ver1/users/633eb8f0069528b78658b656"
+      }
+    ],
     "filename": "routers/user.js",
     "groupTitle": "User"
   },
@@ -2955,6 +3379,11 @@
         }
       ]
     },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3001/ver1/authenticate/user/633eb8f0069528b78658b656"
+      }
+    ],
     "filename": "routers/user.js",
     "groupTitle": "User"
   }

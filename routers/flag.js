@@ -13,6 +13,7 @@ const router = express.Router();
  * @apiPermission Every type of user
  *
  * @apiDescription User use this api to flag a comment, a question or an answer
+ * @apiHeader {String} access_token json web token to access to data
  *
  * @apiParam {string} CommentID Id of the comment that is being flagged
  * @apiParam {string} AnswerID Id of the answer that is being flagged
@@ -51,6 +52,8 @@ const router = express.Router();
  *          "message": "Invalid Token",
  *          "description": "You need to log in to perform the request"
  *      }
+ * 
+ * @apiSampleRequest http://localhost:3001/ver1/authenticate/flag
  */
 router.post("/ver1/authenticate/flag", FlagControl.AddFlag)
 
@@ -86,6 +89,8 @@ router.post("/ver1/authenticate/flag", FlagControl.AddFlag)
  *         }
  *      ]
  * }
+ * 
+ * @apiSampleRequest http://localhost:3001/ver1/flags
  *
  */
 router.get("/ver1/flags", FlagControl.GetAllFlag)
@@ -123,6 +128,8 @@ router.get("/ver1/flags", FlagControl.GetAllFlag)
  *         }
  *      ]
  * }
+ * 
+ * @apiSampleRequest http://localhost:3001/ver1/flags/user/:UserID
  *
  */
 router.get("/ver1/flags/user/:UserID", FlagControl.GetFlagByUserID)
@@ -160,6 +167,8 @@ router.get("/ver1/flags/user/:UserID", FlagControl.GetFlagByUserID)
  *         }
  *     ]
  * }
+ * 
+ * @apiSampleRequest http://localhost:3001/ver1/flags/question/:QuestionID
  *
  */
 router.get("/ver1/flags/question/:QuestionID", FlagControl.GetFlagByQuestionID)
@@ -196,6 +205,8 @@ router.get("/ver1/flags/question/:QuestionID", FlagControl.GetFlagByQuestionID)
  *         }
  *     ]
  * }
+ * 
+ * @apiSampleRequest http://localhost:3001/ver1/flags/answer/:AnswerID
  *
  */
 router.get("/ver1/flags/answer/:AnswerID", FlagControl.GetFlagByAnswerID)
@@ -231,19 +242,22 @@ router.get("/ver1/flags/answer/:AnswerID", FlagControl.GetFlagByAnswerID)
  *             "UserID": "6369c88a8beabd9ff21e16b8"
  *     ]
  * }
+ * 
+ * @apiSampleRequest http://localhost:3001/ver1/flags/comment/:CommentID
  *
  */
 router.get("/ver1/flags/comment/:CommentID", FlagControl.GetFlagByCommentID)
 
 
 /**
- * @api {POST} /ver1/authenticate/flags/:FlagID Delete a flag of a comment, a question or an answer
+ * @api {DELETE} /ver1/authenticate/flags/:FlagID Delete a flag of a comment, a question or an answer
  * @apiVersion 1.0.0
  * @apiName DeleteFlag
  * @apiGroup Flag
  * @apiPermission Every type of user
  *
  * @apiDescription User use this api to un-flag a comment, a question or an answer
+ * @apiHeader {String} access_token json web token to access to data
  *
  * @apiParam {string} FlagID Id of the flag
 
@@ -274,6 +288,9 @@ router.get("/ver1/flags/comment/:CommentID", FlagControl.GetFlagByCommentID)
  *          "message": "Invalid Token",
  *          "description": "You need to log in to perform the request"
  *      }
+ * 
+ * 
+ * @apiSampleRequest http://localhost:3001/ver1/authenticate/flags/:FlagID
  */
 router.delete("/ver1/authenticate/flags/:FlagID", FlagControl.DeleteFlag)
 

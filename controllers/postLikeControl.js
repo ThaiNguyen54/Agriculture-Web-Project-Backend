@@ -8,7 +8,7 @@ export async function AddPostLike(req, res) {
         let accessUerId = req.query.accessUserId || '';
         const NewLike = new PostLike(req.body);
         NewLike.UserID = accessUerId;
-        const LikeInsertData = await PostLike.insertMany(NewLike);
+        // const LikeInsertData = await PostLike.insertMany(NewLike);
         const SearchLike = await PostLike.findOne(
             {
                 UserID: req.body.UserID,

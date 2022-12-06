@@ -9,6 +9,7 @@ const router = express.Router();
  * @apiName AddAnswer
  * @apiGroup Answer
  * @apiPermission Every type of user
+ * @apiHeader {String} access_token json web token to access to data
  *
  * @apiDescription User use this api to post a new answer
  *
@@ -47,6 +48,8 @@ const router = express.Router();
  *          "message": "Invalid Token",
  *          "description": "You need to log in to perform the request"
  *      }
+ * 
+ * @apiSampleRequest http://localhost:3001/ver1/authenticate/answer
  */
 router.post("/ver1/authenticate/answer", AnswerControl.AddAnswer)
 
@@ -82,6 +85,8 @@ router.post("/ver1/authenticate/answer", AnswerControl.AddAnswer)
  *         }
  *      ]
  * }
+ * 
+ * @apiSampleRequest http://localhost:3001/ver1/answers
  *
  */
 router.get("/ver1/answers", AnswerControl.GetAllAnswer)
@@ -117,6 +122,8 @@ router.get("/ver1/answers", AnswerControl.GetAllAnswer)
  *         }
  *      ]
  * }
+ * 
+ * @apiSampleRequest http://localhost:3001/ver1/answers/:UserID
  *
  */
 router.get("/ver1/answers/:UserID", AnswerControl.GetAnswerByUserID)
@@ -132,6 +139,7 @@ router.get("/ver1/answers/:UserID", AnswerControl.GetAnswerByUserID)
  * @apiDescription User use this api to delete an answer
  *
  * @apiParam {string} AnswerId Id of the answer the need to be deleted
+ * @apiHeader {String} access_token json web token to access to data
  *
  * @apiExample Example usage:
  * curl -i http://localhost:3001/ver1/authenticate/answers/:AnswerId
@@ -159,6 +167,9 @@ router.get("/ver1/answers/:UserID", AnswerControl.GetAnswerByUserID)
  *     "message": "Permission error",
  *     "description": "You have no permission to perform this request"
  * }
+ * 
+ * 
+ * @apiSampleRequest http://localhost:3001/ver1/authenticate/answers/:AnswerId
  */
 router.delete("/ver1/authenticate/answers/:AnswerId", AnswerControl.DeleteAnswer)
 
@@ -169,6 +180,7 @@ router.delete("/ver1/authenticate/answers/:AnswerId", AnswerControl.DeleteAnswer
  * @apiName UpdateAnswer
  * @apiGroup Answer
  * @apiPermission Owner of the answer
+ * @apiHeader {String} access_token json web token to access to data
  *
  * @apiDescription User use this api to update an answer
  *
@@ -200,6 +212,8 @@ router.delete("/ver1/authenticate/answers/:AnswerId", AnswerControl.DeleteAnswer
  *     "message": "Permission error",
  *     "description": "You have no permission to perform this request"
  * }
+ * 
+ * @apiSampleRequest http://localhost:3001/ver1/authenticate/answers/:AnswerId
  */
 router.put("/ver1/authenticate/answers/:AnswerId", AnswerControl.UpdateAnswer)
 

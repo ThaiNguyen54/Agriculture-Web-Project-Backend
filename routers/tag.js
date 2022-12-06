@@ -13,6 +13,7 @@ const router = express.Router();
  * @apiPermission Administrator
  *
  * @apiDescription Administrator use this api to add a new tag to the system
+ * @apiHeader {String} access_token json web token to access to data
  *
  * @apiParam {string} TagName Name of the tag
  *
@@ -47,6 +48,7 @@ const router = express.Router();
  *     "message": "Permission error",
  *     "description": "You have no permission to perform this request"
  * }
+ * @apiSampleRequest http://localhost:3001/ver1/authenticate/tag
  */
 router.post("/ver1/authenticate/tag", TagControl.AddTag)
 
@@ -81,54 +83,24 @@ router.post("/ver1/authenticate/tag", TagControl.AddTag)
  *         }
  *     ]
  * }
+ * 
+ * @apiSampleRequest http://localhost:3001/ver1/tags
  */
 router.get("/ver1/tags", TagControl.GetAllTag)
 
-/**
- * @api {GET} /ver1/tags/question/:QuestionID Get all questions which have a specific tag
- * @apiVersion 1.0.0
- * @apiName GetTagByQuestionID
- * @apiGroup Tag
- * @apiPermission Every type of user
- *
- * @apiDescription User use this api to view all questions which have a specific tag
- *
- * @apiParam {string} QuestionID Id of the question
- *
- *
- * @apiExample Example usage:
- * curl -i http://localhost:3001/ver1/tags/question/:QuestionID
- *
- * @apiSuccess {Boolean} success state of the request
- * @apiSuccess {String} message Something from the server
- * @apiSuccess {Object[]} tags Information of the tags in the system
- * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
- * {
- *     "success": true,
- *     "message": "Tags on question 6363c1ec3e42dd9f6b868f17",
- *     "tags": [
- *         {
- *             "_id": "636f1799d6af390bc3f70217",
- *             "UserID": "6369c88a8beabd9ff21e16b8",
- *             "TagName": "Python",
- *             "CreatedDate": "2022-11-12T03:48:41.430Z",
- *             "QuestionID": "6363c1ec3e42dd9f6b868f17"
- *         }
- *     ]
- * }
- */
-router.get("/ver1/tags/question/:QuestionID", TagControl.GetTagByQuestionID)
+
+
 
 
 /**
- * @api {POST} /ver1/authenticate/tags/:TagID Delete a tag
+ * @api {DELETE} /ver1/authenticate/tags/:TagID Delete a tag
  * @apiVersion 1.0.0
  * @apiName DeleteTag
  * @apiGroup Tag
  * @apiPermission Administrator
  *
  * @apiDescription Administrator use this api to delete a tag
+ * @apiHeader {String} access_token json web token to access to data
  *
  * @apiParam {string} TagID Id of the tag
  *
@@ -158,12 +130,14 @@ router.get("/ver1/tags/question/:QuestionID", TagControl.GetTagByQuestionID)
  *     "message": "Permission error",
  *     "description": "You have no permission to perform this request"
  * }
+ * 
+ * @apiSampleRequest http://localhost:3001/ver1/authenticate/tags/:TagID
  */
 router.delete("/ver1/authenticate/tags/:TagID", TagControl.DeleteTag)
 
 
 
-
+// router.get("/ver1/tags/question/:QuestionID", TagControl.GetTagByQuestionID)
 // router.get("/ver1/tags/user/:UserID", TagControl.GetTagByUserID)
 // router.get("/ver1/tags/answer/:AnswerID", TagControl.GetTagByAnswerID)
 // router.get("/ver1/tags/comment/:CommentID", TagControl.GetTagByCommentID)
