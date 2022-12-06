@@ -9,7 +9,6 @@ const QuestionDBSchema = new mongoose.Schema({
     },
     Title: {
         type: String,
-        required: true,
     },
     TagName: {
         type: String,
