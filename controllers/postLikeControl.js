@@ -27,7 +27,7 @@ export async function AddPostLike(req, res) {
                 })
             }
         } else {
-            const UnLike = await PostLike.remove({
+            const UnLike = await PostLike.deleteMany({
                 UserID: req.body.UserID,
                 QuestionID: req.body.QuestionID
             })

@@ -12,8 +12,7 @@ const QuestionDBSchema = new mongoose.Schema({
         required: true,
     },
     TagName: {
-        type: String,
-        required: true
+        type: String
     },
     Image: {
         type: String

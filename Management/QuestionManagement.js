@@ -64,6 +64,9 @@ export function Update (AccessUserId, QuestionId, UpdateData, callback) {
                 if(Utils.VariableTypeChecker(UpdateData.Title, 'string')) {
                     update.Title = UpdateData.Title;
                 }
+                if(Utils.VariableTypeChecker(UpdateData.TagName, 'string')) {
+                    update.TagName = UpdateData.TagName;
+                }
 
                 Question.findOneAndUpdate(query, update, options, function (error, updatedQuestion) {
                     if (error) {
