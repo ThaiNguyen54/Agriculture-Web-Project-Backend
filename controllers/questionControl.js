@@ -71,14 +71,35 @@ export function GetQuestionByUserID (req, res) {
         })
     }
     catch (err) {
-        return res.status(404).send(error)
+        return res.status(404).send(err)
     }
 
 
 }
 
 export function GetQuestionByTag (req, res) {
-
+    try{
+        let tagName = req.body.TagName;
+        questions.find({
+            TagName: tagName
+        }).then((questions) => {
+            return res.status(200).json({
+                success: true,
+                message:  `Found Question(s) with tag ${tagName}`,
+                questions: questions
+            });
+        }).catch((err) => {
+            return res.status(500).json({
+                success: false,
+                message: `Not Found any questions with tag ${tagName}`,
+                error: err.message,
+            })
+        })
+    }
+    catch (err) {
+        return res.status(404).send(err)
+    }
+    
 }
 
 export function DeleteQuestion (req, res) {

@@ -6,7 +6,57 @@ import * as PostLikeControl from '../controllers/postLikeControl.js'
 const router = express.Router();
 
 
-
+/**
+ * @api {POST} /ver1/authenticate/post-like Like a post (question, comment or answer). If already liked, this api will delete the like
+ * @apiVersion 1.0.0
+ * @apiName AddPostLike
+ * @apiGroup Post Like
+ * @apiPermission Every type of user
+ * @apiHeader {String} access_token json web token to access to data
+ * 
+ * 
+ * @apiParam {string} CommentID Id of the comment that is being liked
+ * @apiParam {string} AnswerID Id of the answer that is being liked
+ * @apiParam {string} QuestionID Id of the question that is being liked
+ *
+ * @apiDescription User use this api to like or unlike a post (question, comment or answer)
+ *
+ *
+ * @apiExample Example usage:
+ * curl -i http://localhost:3001/ver1/authenticate/post-like
+ *
+ * @apiSuccess {Boolean} success state of the request
+ * @apiSuccess {String} message message from the server
+ * @apiSuccess {Object[]} data the id of the deleted question
+ * @apiSuccessExample Success-Response:
+ * HTTP/1.1 200 OK
+ * {
+ *   "success": true,
+ *   "message": "Like successfully",
+ *   "like": [
+ *       {
+ *           "CommentID": "63880cdfa00121e3f0f8a891",
+ *           "_id": "638f55012891d4b3ed391bc7",
+ *           "PostLikeDate": "2022-12-06T14:43:13.915Z",
+ *           "UserID": "63424a31bfeed9be13fd9e65"
+ *       }
+ *   ]
+ * }
+ *
+ * @apiError 400_Bad_Request User need to login
+ *
+ * @apiErrorExample Error-Response:
+ * HTTP/1.1 400 Bad_Request
+ * {
+ *      "success": false,
+ *      "code": 9,
+ *      "message": "Invalid Token",
+ *      "description": "You need to log in to perform the request"
+ * }
+ * 
+ * 
+ * @apiSampleRequest http://localhost:3001/ver1/authenticate/post-like
+ */
 router.post("/ver1/authenticate/post-like", PostLikeControl.AddPostLike)
 
 
@@ -27,7 +77,7 @@ router.post("/ver1/authenticate/post-like", PostLikeControl.AddPostLike)
  * @apiSuccess {String} message Something from the server
  * @apiSuccess {Object[]} likes Information of all likes in the system
  * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
+ * HTTP/1.1 200 OK
  * {
  *    "success": true,
  *     "message": "List of all likes",
@@ -41,6 +91,8 @@ router.post("/ver1/authenticate/post-like", PostLikeControl.AddPostLike)
  *
  *      ]
  * }
+ * 
+ * @apiSampleRequest http://localhost:3001/ver1/post-like
  *
  */
 router.get("/ver1/post-like", PostLikeControl.GetAllPostLike)
@@ -78,6 +130,8 @@ router.get("/ver1/post-like", PostLikeControl.GetAllPostLike)
  *         }
  *      ]
  * }
+ * 
+ * @apiSampleRequest http://localhost:3001/ver1/post-like/user/:UserID
  *
  */
 router.get("/ver1/post-like/user/:UserID", PostLikeControl.GetPostLikeByUserID)
@@ -115,14 +169,15 @@ router.get("/ver1/post-like/user/:UserID", PostLikeControl.GetPostLikeByUserID)
  *         }
  *     ]
  * }
+ * 
+ * @apiSampleRequest http://localhost:3001/ver1/post-like/question/:QuestionID
  *
  */
 router.get("/ver1/post-like/question/:QuestionID", PostLikeControl.GetPostLikeByQuestionID)
 
 
 /**
- * @api {GET} /ver1/post-like/answer/:AnswerID View all post likes of a question
- * @apiVersion 1.0.0
+ * @api {GET} /ver1/post-like/answer/:AnswerID View all post likes of an answer
  * @apiName GetPostLikeByAnswerID
  * @apiGroup Post Like
  * @apiPermission Every type of user
@@ -152,6 +207,8 @@ router.get("/ver1/post-like/question/:QuestionID", PostLikeControl.GetPostLikeBy
  *         }
  *     ]
  * }
+ * 
+ * @apiSampleRequest http://localhost:3001/ver1/post-like/answer/:AnswerID
  *
  */
 router.get("/ver1/post-like/answer/:AnswerID", PostLikeControl.GetPostLikeByAnswerID)
@@ -166,7 +223,7 @@ router.get("/ver1/post-like/answer/:AnswerID", PostLikeControl.GetPostLikeByAnsw
  *
  * @apiDescription User use this api to view all post likes of a comment
  *
- * @apiParam {string} AnswerID Id of a answer
+ * @apiParam {string} CommentID Id of a comment
  *
  *
  * @apiExample Example usage:
@@ -189,9 +246,13 @@ router.get("/ver1/post-like/answer/:AnswerID", PostLikeControl.GetPostLikeByAnsw
  *         }
  *     ]
  * }
+ * 
+ * @apiSampleRequest http://localhost:3001/ver1/post-like/comment/:CommentID
  *
  */
 router.get("/ver1/post-like/comment/:CommentID", PostLikeControl.GetPostLikeByCommentID)
+
+
 
 // router.delete("/ver1/authenticate/post-like/:PostLikeId", PostLikeControl.DeletePostLike)
 
