@@ -30,18 +30,10 @@ app.use(FlagRoute)
 app.use(PostLikeRoute)
 app.use(TagRoute)
 
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept, Authorization ');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATH, DELETE');
-    next();
-})
 
 //-----------------------------> Mongoose <--------------------------//
 mongoose.connect(mongoconfig.mongodb.THAI_uri);
 
-//------------------------------> Post <-----------------------------//
-app.use(signup);
 //---------------------------> Set up PORT <-------------------------//
 let port = process.env.PORT;
 if(port == null || port == ""){
@@ -52,5 +44,5 @@ if(port == null || port == ""){
 
 //---------------------------> ListenPort <--------------------------//
 app.listen(port, () => {
-    console.log("Server is running on port 3001");
+    console.log(`Server is running on port ${port}`);
 })

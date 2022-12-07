@@ -2,7 +2,6 @@ import * as Utils from '../utils/utilFuncs.js'
 import Question from '../models/question.js'
 import Validator from 'validator';
 
-
 export function Delete(QuestionID, accessUserRight, accessUserId, callback) {
     try{
         if(!Utils.VariableTypeChecker(QuestionID, 'string') || !Validator.isMongoId(QuestionID)) {
@@ -64,6 +63,9 @@ export function Update (AccessUserId, QuestionId, UpdateData, callback) {
                 }
                 if(Utils.VariableTypeChecker(UpdateData.Title, 'string')) {
                     update.Title = UpdateData.Title;
+                }
+                if(Utils.VariableTypeChecker(UpdateData.TagName, 'string')) {
+                    update.TagName = UpdateData.TagName;
                 }
 
                 Question.findOneAndUpdate(query, update, options, function (error, updatedQuestion) {

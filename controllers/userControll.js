@@ -49,18 +49,34 @@ export const AddUserAccount = async(req, res) =>{
 export function GetAllUser(req, res){
     let accessUserId = req.query.accessUserId || '';
     let accessUserRight = req.query.accessUserRight || '';
+
+    // if(accessUserRight != 'ADMIN') {
+    //     return res.json({
+    //         'success': false,
+    //         'code': 8,
+    //         'message': 'Cannot get all users.',
+    //         'description': 'Invalid User Right'
+    //     })
+    // }
+
+    users.find()
+        .select('_id UserName Avatar BackgroundImg Email RegisterDate')
     users.find()
         .then(allUsers => {
-            res.status(200).json(allUsers.map((item) => {
-                return {
-                    userId: item._id,
-                    UserName: item.UserName,
-                    Avatar: item.Avatar,
-                    BackgroundImg: item.BackgroundImg,
-                    Email: item.Email,
-                    CreatedDate: item.RegisterDate
-                }
-            }))
+            return res.status(200).json({
+                success: true,
+                message: 'List of all users',
+                Users: allUsers,
+            });
+
+            // res.status(200).json(allUsers.map((item) => {
+            //     return {
+            //         userId: item._id,
+            //         userName: item.UserName,
+            //         avatarImg: item.Avatar,
+            //         backgroundImg: item.BackgroundImg,
+            //     }
+            // }))
         })
         .catch((err) => {
             return(
@@ -86,7 +102,16 @@ export function GetUserById(req, res){
         })
     }
 
+    // if (accessUserId != id) {
+    //     return res.status(403).json({
+    //         "success": false,
+    //         "code": 9,
+    //         "message": "Not available",
+    //         "description": "This content is not available"
+    //     })
+    // }
     users.findById(id)
+        .select('_id UserName Avatar BackgroundImg Email RegisterDate')
         .then((user) => {
             return res.status(200).json({
                 success: true,

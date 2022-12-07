@@ -2,11 +2,16 @@ import questions from "../models/question.js";
 import MongodbConfig from "../configs/MongodbConfig.js";
 import * as QuestionManagement from '../Management/QuestionManagement.js'
 import * as Rest from '../utils/Rest.js';
+import cloudinaries from '../utils/Cloudinary.js';
 
 export async function AddQuestion(req, res) {
     try {
         let accessUerId = req.query.accessUserId || '';
+        const result = await cloudinaries.uploader.upload(req.body.Image, {})
         const NewQuestion = new questions(req.body);
+        if(result){
+            NewQuestion.Image = result.secure_url;
+        }
         NewQuestion.UserID = accessUerId;
         const QuestionInsertData = await questions.insertMany(NewQuestion);
         if(!QuestionInsertData) {
@@ -78,13 +83,35 @@ export function GetQuestionByUserID (req, res) {
 }
 
 export function GetQuestionByTag (req, res) {
-
+    try{
+        let tagName = req.body.TagName;
+        questions.find({
+            TagName: tagName
+        }).then((questions) => {
+            return res.status(200).json({
+                success: true,
+                message:  `Found Question(s) with tag ${tagName}`,
+                questions: questions
+            });
+        }).catch((err) => {
+            return res.status(500).json({
+                success: false,
+                message: `Not Found any questions with tag ${tagName}`,
+                error: err.message,
+            })
+        })
+    }
+    catch (err) {
+        return res.status(404).send(err)
+    }
+    
 }
 
 export function DeleteQuestion (req, res) {
     let accessUserRight = req.query.accessUserRight || '';
     let accessUserId = req.query.accessUserId || '';
     let QuestionId = req.params.QuestionId || '';
+    
 
     QuestionManagement.Delete(QuestionId, accessUserRight, accessUserId, function (errorCode, errorMessage, httpCode, errorDescription) {
         if(errorCode) {

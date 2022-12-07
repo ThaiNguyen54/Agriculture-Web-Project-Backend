@@ -6,6 +6,15 @@ import * as Rest from '../utils/Rest.js';
 export async function AddTag(req, res) {
     try {
         let accessUerId = req.query.accessUserId || '';
+        let accessUserRight = req.query.accessUserRight || '';
+        if(accessUserRight !== 'ADMIN') {
+            return res.status(403).json({
+                success: false,
+                message: "Permission Error",
+                description: "You don't have permission to perform this action",
+            })
+        }
+
         const NewTag = req.body;
         NewTag.map((tag) => (
             tag.UserID = accessUerId
@@ -16,7 +25,7 @@ export async function AddTag(req, res) {
             throw new Error("Something wrong with this action");
         }
         else {
-            return res.json({
+            return res.status(200).json({
                 success: true,
                 message: "Add tags successfully",
                 tags: TagInsertData,
@@ -73,7 +82,7 @@ export function GetTagByUserID (req, res) {
         })
     }
     catch (err) {
-        return res.status(404).send(error)
+        return res.status(404).send(err)
     }
 }
 

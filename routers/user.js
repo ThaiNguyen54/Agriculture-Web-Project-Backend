@@ -15,6 +15,9 @@ const router = express.Router();
  *
  * @apiExample Example usage:
  * curl -i http://localhost:3001/login
+ * 
+ * @apiParam {string} LoginName a string with length <= 64
+ * @apiParam {String} Password a string with 4 < length < 64
  *
  * @apiSuccess {Boolean} success state of the request
  * @apiSuccess {String} token User's token
@@ -41,6 +44,8 @@ const router = express.Router();
  *          "mess": "unavailable",
  *          "description": "Cannot find your account"
  *      }
+ * 
+ * @apiSampleRequest http://localhost:3001/login
  */
 router.post('/login', UserControl.Login)
 
@@ -91,6 +96,9 @@ router.post('/login', UserControl.Login)
  *          "message": "Email conflict",
  *          "description": "There is another account using this Email."
  *      }
+ * 
+ * 
+ * @apiSampleRequest http://localhost:3001/ver1/user
  */
 router.post("/ver1/user", UserControl.AddUserAccount)
 
@@ -99,8 +107,7 @@ router.post("/ver1/user", UserControl.AddUserAccount)
  * @apiVersion 1.0.0
  * @apiName GetAllUser
  * @apiGroup User
- * @apiPermission Administrator
- * @apiHeader {String} access_token json web token to access to data
+ * @apiPermission Every type of users
  *
  * @apiDescription Get all users
  *
@@ -116,13 +123,14 @@ router.post("/ver1/user", UserControl.AddUserAccount)
  *     {
  *      "success": true,
  *      "message": "List of all users",
- *      "data": [
+ *      "Users": [
  *          {
  *              "_id": "633e90e356881a06993559f3",
  *              "UserName": "Thanh Le",
- *              "LoginName": "ThanhVe",
- *              "Password": "$2b$10$hkrkTOixirx/4g/bEbgWru.gVfjOYdtq3yirQxDdxAGFEenKqriPC",
- *              "Email": "ThanhVe@gmail.com"
+ *              "Email": "ThanhVe@gmail.com",
+ *              "RegisterDate": "2022-11-17T15:31:20.692Z"
+ *              "Avatar": "https://demoda.vn/wp-con…-truc-bua-trung-quoc.jpg"
+ *              "BackgroundImg": "https://assets.entrepreneur.com/content/3x2/2000/20180703190744-rollsafe-meme.jpeg?crop=16:9
  *          },
  *       ]
  *      }
@@ -137,6 +145,9 @@ router.post("/ver1/user", UserControl.AddUserAccount)
  *          "message": "Invalid Token"
  *          "description": "You need to log in to perform the request"
  *      }
+ * 
+ * 
+ * @apiSampleRequest http://localhost:3001/ver1/users
  */
 router.get("/ver1/users", UserControl.GetAllUser)
 
@@ -146,7 +157,6 @@ router.get("/ver1/users", UserControl.GetAllUser)
  * @apiName GetUserById
  * @apiGroup User
  * @apiPermission Every type of user
- * @apiHeader {String} access_token json web token to access to data
  *
  * @apiDescription Get one user
  *
@@ -163,26 +173,20 @@ router.get("/ver1/users", UserControl.GetAllUser)
  *     HTTP/1.1 200 OK
  *      {
  *          "success": true,
- *          "message": "Found one user with id: 633eb8f0069528b78658b656",
- *          "data": {
- *                      "_id": "633eb8f0069528b78658b656",
- *                      "UserName": "Trong",
- *                      "LoginName": "Trong",
- *                      "Password": "$2a$10$BqqeoYnYcZLGXrK89JHju.j9Ymy1mi3.GrrLpIM1CN6xIUORaMNuS",
- *                      "Email": "trong@gmail.com"
+ *          "message": "Found one user with id: 633e90e356881a06993559f3",
+ *          "Users": {
+ *              "_id": "633e90e356881a06993559f3",
+ *              "UserName": "Thanh Le",
+ *              "Email": "ThanhVe@gmail.com",
+ *              "RegisterDate": "2022-11-17T15:31:20.692Z"
+ *              "Avatar": "https://demoda.vn/wp-con…-truc-bua-trung-quoc.jpg"
+ *              "BackgroundImg": "https://assets.entrepreneur.com/content/3x2/2000/20180703190744-rollsafe-meme.jpeg?crop=16:9
  *          }
  *      }
  *
- * @apiError 403_Forbidden Forbidden content
  *
- * @apiErrorExample Error-Response:
- *     HTTP/1.1 403_Forbidden
- *      {
- *          "success": false,
- *          "code": 9,
- *          "message": "Not available",
- *          "description": "This content is not available"
- *      }
+ * 
+ * @apiSampleRequest http://localhost:3001/ver1/users/633eb8f0069528b78658b656
  */
 router.get("/ver1/users/:UserID", UserControl.GetUserById)
 
@@ -226,6 +230,8 @@ router.get("/ver1/users/:UserID", UserControl.GetUserById)
  *          "message": "invalid_id",
  *          "description": "The inputted user id is in wrong format"
  *      }
+ * 
+ * @apiSampleRequest http://localhost:3001/ver1/authenticate/user/633eb8f0069528b78658b656
  */
 router.delete('/ver1/authenticate/user/:UserID', UserControl.DeleteUser)
 
@@ -269,6 +275,8 @@ router.delete('/ver1/authenticate/user/:UserID', UserControl.DeleteUser)
  *          "message": "invalid_user_right",
  *          "description": "you don't have permission to perform this request"
  *      }
+ * 
+ * @apiSampleRequest http://localhost:3001/ver1/authenticate/user/633eb8f0069528b78658b656
  */
 router.put('/ver1/authenticate/user/:UserID', UserControl.UpdateUser)
 

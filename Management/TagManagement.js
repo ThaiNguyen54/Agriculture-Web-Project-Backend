@@ -15,10 +15,10 @@ export function Delete(TagID, accessUserRight, accessUserId, callback) {
             }
             else {
                 if(tag){
-                    if(accessUserId !== tag.UserID) {
-                        return callback (8, 'Permission error', 403, "Only owner can perform this request")
+                    if(accessUserRight !== 'ADMIN') {
+                        return callback (8, 'Permission error', 403, "You don't have permission to perform this action")
                     }
-                    else if (accessUserId === tag.UserID){
+                    else if (accessUserRight === 'ADMIN'){
                         tag.remove(function(error) {
                             if(error) {
                                 return callback(8, 'Remove failed', 420, error);

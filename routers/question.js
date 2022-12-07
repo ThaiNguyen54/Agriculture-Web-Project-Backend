@@ -11,7 +11,10 @@ const router = express.Router();
  * @apiHeader {String} access_token json web token to access to data
  *
  * @apiDescription User use this api to post a question to the system
- *
+ * 
+ * @apiParam {string} Title Title of the question
+ * @apiParam {string} QContent Content of the question
+ * @apiParam {string} TagName Tag name of the question
  *
  * @apiExample Example usage:
  * curl -i http://localhost:3001/ver1/authenticate/question
@@ -45,6 +48,9 @@ const router = express.Router();
  *     "message": "Invalid Token",
  *     "description": "You need to log in to perform the request"
  * }
+ * 
+ * 
+ * @apiSampleRequest http://localhost:3001/ver1/authenticate/question
  */
 router.post("/ver1/authenticate/question", QuestionControl.AddQuestion)
 
@@ -81,6 +87,8 @@ router.post("/ver1/authenticate/question", QuestionControl.AddQuestion)
  *     ]
  * }
  *
+ * 
+ * @apiSampleRequest http://localhost:3001/ver1/questions
  */
 router.get("/ver1/questions/", QuestionControl.GetAllQuestion)
 
@@ -115,8 +123,9 @@ router.get("/ver1/questions/", QuestionControl.GetAllQuestion)
  *         }
  *     ]
  * }
+ * 
+ * @apiSampleRequest http://localhost:3001/ver1/questions/:UserID
  */
-
 router.get("/ver1/questions/:UserID", QuestionControl.GetQuestionByUserID)
 
 /**
@@ -156,6 +165,9 @@ router.get("/ver1/questions/:UserID", QuestionControl.GetQuestionByUserID)
  *     "message": "Permission error",
  *     "description": "You have no permission to perform this request"
  * }
+ * 
+ * 
+ * @apiSampleRequest http://localhost:3001/ver1/authenticate/questions/:QuestionId
  */
 router.delete("/ver1/authenticate/questions/:QuestionId", QuestionControl.DeleteQuestion)
 
@@ -171,6 +183,7 @@ router.delete("/ver1/authenticate/questions/:QuestionId", QuestionControl.Delete
  *
  * @apiDescription User use this api to update a question
  *
+ * @apiParam {string} QuestionId Id of the question that need to be updated
  *
  * @apiExample Example usage:
  * curl -i http://localhost:3001/ver1/authenticate/questions/123
@@ -198,7 +211,51 @@ router.delete("/ver1/authenticate/questions/:QuestionId", QuestionControl.Delete
  *     "message": "Permission error",
  *     "description": "Only the owner can edit the question"
  * }
+ * 
+ * 
+ * @apiSampleRequest http://localhost:3001/ver1/authenticate/questions/:QuestionId
  */
 router.put("/ver1/authenticate/questions/:QuestionId", QuestionControl.UpdateQuestion)
+
+
+
+/**
+ * @api {GET} /ver1/questionsbytag Search questions by tag
+ * @apiVersion 1.0.0
+ * @apiName GetQuestionByTag
+ * @apiGroup Question
+ * @apiPermission Every type of user
+ *
+ * @apiDescription User use this api to search question by tag
+ *
+ * @apiParam {String} TagName Name of a tag
+ * @apiExample Example usage:
+ * curl -i http://localhost:3001/ver1/questionsbytag
+ *
+ * @apiSuccess {Boolean} success state of the request
+ * @apiSuccess {String} message message from the server
+ * @apiSuccess {Object[]} questions questions related to input tag
+ * @apiSuccessExample Success-Response:
+ * HTTP/1.1 200 OK
+ * {
+ *     "success": true,
+ *     "message": "Found Question(s) with tag Trồng trọt",
+ *     "questions": [
+ *        {
+ *          "_id": "63881628a00121e3f0f8a961",
+ *          "Title": "Trồng cây",
+ *           "TagName": "Trồng trọt",
+ *           "QContent": "cây thơm ngon bổ dưỡng, hít vào là phê, lê thê tới nóc",
+ *           "PostedDate": "2022-12-01T02:49:12.501Z",
+ *           "UserID": "63424a31bfeed9be13fd9e65"
+ *         }
+ *      ]
+ * }
+ *
+ * 
+ * 
+ * @apiSampleRequest http://localhost:3001/ver1/questionsbytag
+ */
+router.get("/ver1/questionsbytag", QuestionControl.GetQuestionByTag)
 
 export default router;
