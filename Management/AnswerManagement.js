@@ -21,12 +21,12 @@ export function Delete(AnswerId, accessUserRight, accessUserId, callback) {
                     }
                     else if ((accessUserRight === "ADMIN" &&  accessUserId !== answer.UserID) ||
                         (accessUserRight !== "ADMIN" &&  accessUserId === answer.UserID)){
-                        answer.remove(function(error) {
+                        Answer.remove({_id: AnswerId}, function(error){
                             if(error) {
                                 return callback(8, 'Remove failed', 420, error);
                             }
                             return  callback(null, null, 200, null, answer);
-                        });
+                        })
                     }
                     else {
                         return callback(null, null, 200, null);
