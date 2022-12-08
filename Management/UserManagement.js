@@ -2,7 +2,7 @@ import * as Utils from '../utils/utilFuncs.js'
 import User from '../models/user.js'
 import bcrypt  from "bcryptjs";
 import Validator from 'validator';
-
+import cloudinaries from '../utils/Cloudinary.js';
 
 
 export function Authenticate (LoginName, Password, callback) {
@@ -76,7 +76,7 @@ export function Delete(AccessUserId, AccessUserRight, UserID, callback) {
     }
 }
 
-export function Update(AccessUserID, AccessUserRight, UserID, UpdateData, callback) {
+export async function Update(AccessUserID, AccessUserRight, UserID, UpdateData, callback) {
     try{
         if(AccessUserRight !== "ADMIN" && AccessUserID !== UserID){
             return callback(8, 'invalid_user_right', 403, "you don't have permission to perform this request", null);
@@ -86,32 +86,39 @@ export function Update(AccessUserID, AccessUserRight, UserID, UpdateData, callba
             return callback(8, 'invalid id', 400, 'User id is not a string', null);
         }
 
+        
         let query = {};
         query._id = UserID;
         let update = {};
         update.UpdatedBy = AccessUserID;
-
+        
         if(Utils.VariableTypeChecker(UpdateData.LoginName, 'string') &&
-            Validator.isAlphhanumeric(UpdateData.LoginName)) {
+        Validator.isAlphhanumeric(UpdateData.LoginName)) {
             update.LoginName = UpdateData.LoginName;
         }
-
+        
         if(Utils.VariableTypeChecker(UpdateData.UserName, 'string')) {
             update.UserName = UpdateData.UserName;
         }
-
+        
         if(Utils.VariableTypeChecker(UpdateData.Email, 'string')) {
             update.Email = UpdateData.Email
         }
-
+        
         if(Utils.VariableTypeChecker(UpdateData.Avatar, 'string')) {
-            update.Avatar = UpdateData.Avatar
+            const result = await cloudinaries.uploader.upload(UpdateData.Avatar, {})
+            if(result){
+                update.Avatar = result.secure_url
+            }
         }
-
+        
         if(Utils.VariableTypeChecker(UpdateData.BackgroundImg, 'string')) {
-            update.BackgroundImg = UpdateData.BackgroundImg
+            const result = await cloudinaries.uploader.upload(UpdateData.BackgroundImg, {})
+            if(result){
+                update.BackgroundImg = result.secure_url
+            }
         }
-
+        
         let options = {
             upsert: false,
             new: true,
