@@ -19,7 +19,7 @@ export function Authenticate (LoginName, Password, callback) {
             if (error) {
                 return callback(8, 'Not found', 420, error, null);
             }
-
+            
             if(user) {
                 bcrypt.compare(Password, user.Password, function (error, result) {
                     if (result === true) {

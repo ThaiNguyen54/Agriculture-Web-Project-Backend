@@ -60,7 +60,7 @@ export function GetAllUser(req, res){
     // }
 
     users.find()
-        .select('_id UserName Avatar BackgroundImg Email RegisterDate')
+        .select('_id UserName Avatar BackgroundImg Email RegisterDate UserRight')
         .then(allUsers => {
             return res.status(200).json({
                 success: true,
@@ -113,7 +113,7 @@ export function GetUserById(req, res){
     //     })
     // }
     users.findById(id)
-        .select('_id UserName Avatar BackgroundImg Email RegisterDate')
+        .select('_id UserName Avatar BackgroundImg Email RegisterDate UserRight')
         .then((user) => {
             return res.status(200).json({
                 success: true,
