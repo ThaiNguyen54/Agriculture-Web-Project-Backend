@@ -20,6 +20,10 @@ const QuestionDBSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    TagName: {
+        type: String,
+        required: true,
+    },
     PostedDate: {
         type: Date,
         default: Date.now,

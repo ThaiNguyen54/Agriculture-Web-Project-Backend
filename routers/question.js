@@ -90,7 +90,7 @@ router.post("/ver1/authenticate/question", QuestionControl.AddQuestion)
  * 
  * @apiSampleRequest http://localhost:3001/ver1/questions
  */
-router.get("/ver1/questions", QuestionControl.GetAllQuestion)
+router.get("/ver1/questions/", QuestionControl.GetAllQuestion)
 
 /**
  * @api {GET} /ver1/questions/:UserID Get all questions of a user
