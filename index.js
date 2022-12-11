@@ -30,7 +30,7 @@ app.use(FlagRoute)
 app.use(PostLikeRoute)
 app.use(TagRoute)
 
-
+// LeSyThanh was here
 //-----------------------------> Mongoose <--------------------------//
 mongoose.connect(mongoconfig.mongodb.THAI_uri);
 
