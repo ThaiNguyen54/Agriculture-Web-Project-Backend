@@ -15,10 +15,7 @@ export function Delete(FlagID, accessUserRight, accessUserId, callback) {
             }
             else {
                 if(flag){
-                    if(accessUserId !== flag.UserID) {
-                        return callback (8, 'Permission error', 403, "Only owner can perform this request")
-                    }
-                    else if (accessUserId === flag.UserID){
+                    if (accessUserRight === "ADMIN"){
                         flag.remove(function(error) {
                             if(error) {
                                 return callback(8, 'Remove failed', 420, error);

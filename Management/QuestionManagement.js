@@ -17,7 +17,7 @@ export function Delete(QuestionID, accessUserRight, accessUserId, callback) {
                     if(accessUserRight !== "ADMIN" && accessUserId !== question.UserID) {
                         return callback (8, 'Permission error', 403, "You have no permission to perform this request")
                     }
-                    else if ((accessUserRight === "ADMIN" &&  accessUserId !== question.UserID) ||
+                    else if ((accessUserRight === "ADMIN") ||
                         (accessUserRight !== "ADMIN" &&  accessUserId === question.UserID)){
                         question.remove(function(error) {
                             if(error) {
